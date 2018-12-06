@@ -1,0 +1,11 @@
+main {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+.hex-container {
+    border: 3px solid black;
+    width: 720px;
+    height: 720px;
+}
