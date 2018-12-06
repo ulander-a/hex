@@ -16,7 +16,7 @@ const createRow = length => {
         row.hexes.push(hex)
     })
 
-    return row 
+    return row
 }
 
 const calcRows = amnt => {
@@ -25,6 +25,7 @@ const calcRows = amnt => {
     if (amnt > 4) {
         let currentLength = 4
 
+        // TODO: Change to something more "functional"
         while (amnt - currentLength > currentLength) {
             const newRow = createRow(currentLength)
             rows.push(newRow)
@@ -36,22 +37,28 @@ const calcRows = amnt => {
     return rows
 }
 
-// const renderHexes = (container, amnt) => {
-//     return amnt.map(() => {
-//         const hexagon = new Hexagon
-//         container.insertAdjacentHTML(
-//             'beforeend',
-//             `<div class="hex">
-//                 ${hexagon.left}
-//                 ${hexagon.center}
-//                 ${hexagon.right}
-//             </div>`
-//         )
-//     })
-// }
+const render = (container, rows) => {
+    return rows.map((row) => {
+        container.insertAdjacentHTML(
+            'beforeend',
+            `<div class="hex-row"><div class="hex">${row.hexes[0].center}</div><div>`
+        )
+    })
+    //     return amnt.map(() => {
+    //         const hexagon = new Hexagon
+    //         container.insertAdjacentHTML(
+    //             'beforeend',
+    //             `< div class="hex" >
+    //                 ${hexagon.left}
+    //                 ${hexagon.center}
+    //                 ${hexagon.right}
+    //             </div>`
+    //         )
+    //     })
+}
 
 window.onload = () => {
     const container = document.getElementById('hex-container')
-    // renderHexes(container, [...Array(30)])
-    console.log(calcRows(20))
+    const rows = calcRows(20)
+    render(container, rows)
 }
