@@ -4,8 +4,8 @@ main {
     justify-content: space-around;
 }
 
-.hex-container {
-    border: 3px solid black;
+#hex-container {
+    /* border: 3px solid black; */
     width: 720px;
     height: 720px;
 }
