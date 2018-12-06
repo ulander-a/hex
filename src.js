@@ -13,7 +13,6 @@ renderHexes = (hexContainer) => {
         hexContainer.insertAdjacentHTML('beforeend', hexagon.top)
         hexContainer.insertAdjacentHTML('beforeend', hexagon.center)
         hexContainer.insertAdjacentHTML('beforeend', hexagon.bottom)
-
     }
 }
 
