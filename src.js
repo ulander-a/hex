@@ -6,49 +6,52 @@ class Hexagon {
     }
 }
 
-const createHex = () => {
-    
-}
+const createRow = length => {
+    let row = {
+        hexes: []
+    }
 
-const createRows = length => {
+    Array(length).fill().map(() => {
+        const hex = new Hexagon
+        row.hexes.push(hex)
+    })
 
+    return row 
 }
 
 const calcRows = amnt => {
-    amnt.length > 4 
-}
+    let rows = []
 
-const renderHexes = (container, amnt) => {
-    // first row up to 4
-    // second row
-    // if second row == first row +1 create another row
-    // repeat until latest row +1 != previous row, then just render remaining hexes
+    if (amnt > 4) {
+        let currentLength = 4
 
-    if (amnt.length > 4) {
-        // create new row 
-        // if amnt.length > new row.length - create new row
-        // if amnt.length > new row.length - create new row 
+        while (amnt - currentLength > currentLength) {
+            const newRow = createRow(currentLength)
+            rows.push(newRow)
+            currentLength = newRow.hexes.length + 1
+        }
     } else {
-        // just create a row of what we have
+        rows.push(createRow(amnt))
     }
-
-    // render rows
-
-    return amnt.map(() => {
-        const hexagon = new Hexagon
-        container.insertAdjacentHTML(
-            'beforeend',
-            `<div class="hex">
-                ${hexagon.left}
-                ${hexagon.center}
-                ${hexagon.right}
-            </div>`
-        )
-    })
+    return rows
 }
+
+// const renderHexes = (container, amnt) => {
+//     return amnt.map(() => {
+//         const hexagon = new Hexagon
+//         container.insertAdjacentHTML(
+//             'beforeend',
+//             `<div class="hex">
+//                 ${hexagon.left}
+//                 ${hexagon.center}
+//                 ${hexagon.right}
+//             </div>`
+//         )
+//     })
+// }
 
 window.onload = () => {
     const container = document.getElementById('hex-container')
-    console.log(container)
-    renderHexes(container, [...Array(4)])
+    // renderHexes(container, [...Array(30)])
+    console.log(calcRows(20))
 }
