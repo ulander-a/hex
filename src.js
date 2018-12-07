@@ -37,24 +37,26 @@ const calcRows = amnt => {
     return rows
 }
 
+const nugs = (hex) => {
+    const hexHTML =  `<div class="hex">${hex.left}${hex.center}${hex.right}</div>`
+    console.log(hexHTML)
+    return hexHTML
+}
+
 const render = (container, rows) => {
-    return rows.map((row) => {
-        container.insertAdjacentHTML(
-            'beforeend',
-            `<div class="hex-row"><div class="hex">${row.hexes[0].center}</div><div>`
-        )
+
+    return rows.map(row => {
+        let hexes = row.hexes.map((hex) => {nugs(hex)})
+        console.log(hexes)
+        container.innerHTML =
+            `<div class="hex row">${hexes}</div>`
+        // row.hexes.map(hex => {
+        //     rowHTML.insertAdjacentHTML(
+        //         'beforeend',
+        //         '<p>AAAAAAAAAA</p>'
+        //     )
+        // })
     })
-    //     return amnt.map(() => {
-    //         const hexagon = new Hexagon
-    //         container.insertAdjacentHTML(
-    //             'beforeend',
-    //             `< div class="hex" >
-    //                 ${hexagon.left}
-    //                 ${hexagon.center}
-    //                 ${hexagon.right}
-    //             </div>`
-    //         )
-    //     })
 }
 
 window.onload = () => {
