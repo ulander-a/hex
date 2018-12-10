@@ -15,6 +15,12 @@ const calcRows = amnt => {
         return i
     })
 
+    const newArr = arr.concat(arr.map((v, i) => {
+        return arr[arr.length - i]
+    }))
+    
+    console.log(newArr)
+    // concat array with itself in reverse
 
     // const grid = arr.concat(arr)
     // console.log(grid) 
@@ -41,6 +47,6 @@ const render = (array, container) => {
 
 window.onload = () => {
     const container = document.getElementById('hex-container')
-    const rows = calcRows(5)
+    const rows = calcRows(21)
     // render(rows, container)
 }
