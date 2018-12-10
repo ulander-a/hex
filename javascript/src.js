@@ -11,8 +11,18 @@ const rowHTML = length => {
 }
 
 const calcRows = amnt => {
+    let rowLength = 3
+
     const rows = [...Array(amnt)].map(() => {
-        return `<div class="hex-row">${rowHTML(4)}</div>`
+        // create rows with varying length from top to bottom
+        // rowLenght = 3
+        // while rowLength < amnt create new row and return new rowLength
+        while (rowLength < amnt) {
+            const row = `<div class="hex-row">${rowHTML(rowLength)}</div>`
+            rowLength++
+            console.log(rowLength)
+            return row
+        }
     })
 
     return rows
@@ -29,6 +39,6 @@ const render = (arr, container) => {
 
 window.onload = () => {
     const container = document.getElementById('hex-container')
-    const rows = calcRows(5)
+    const rows = calcRows(6)
     render(rows, container)
 }
