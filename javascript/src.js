@@ -1,24 +1,23 @@
-class Hexagon {
-    constructor() {
-        this.left = '<div class="left"></div>'
-        this.center = '<div class="center"></div>'
-        this.right = '<div class="right"></div>'
-    }
-}
-
-class Renderer {
-    render(container, element) {
-        let hex = element.left + element.center + element.right
-        return container.insertAdjacentHTML(
-            'beforeend',
-            `<div class="hex">${hex}</div>`
-        )
-    }
+const calcRows = (int) => {
+    const hexagon = `
+        <div class="hex">
+            <div class="left"></div>
+            <div class="center"></div>
+            <div class="right"></div>
+        </div>
+    `
+    return [...Array(int)].map(() => {
+        return hexagon
+    })
 }
 
 window.onload = () => {
-    const hex = new Hexagon
     const container = document.getElementById('hex-container')
-    const renderer = new Renderer
-    renderer.render(container, hex)
+    const rows = calcRows(10)
+    return rows.map(row => {
+        container.insertAdjacentHTML(
+            'beforeend',
+            row
+        )
+    })
 }
