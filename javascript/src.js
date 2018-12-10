@@ -7,8 +7,18 @@ class Hexagon {
 }
 
 class Renderer {
-    render = () => {
-
+    render(container, element) {
+        let hex = element.left + element.center + element.right
+        return container.insertAdjacentHTML(
+            'beforeend',
+            `<div class="hex">${hex}</div>`
+        )
     }
 }
 
+window.onload = () => {
+    const hex = new Hexagon
+    const container = document.getElementById('hex-container')
+    const renderer = new Renderer
+    renderer.render(container, hex)
+}
