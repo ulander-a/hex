@@ -1,12 +1,13 @@
 const rowHTML = length => {
     const test = [...Array(length)].map((value, index) => {
         return `
-        <div class="hex ${index % 2 == 0 ? 'even' : ''}">
+        <div class="${index % 2 == 0 ? 'hex even' : 'hex'}">
             <div class="left"></div>
             <div class="center"></div>
             <div class="right"></div>
         </div>`
     })
+    debugger
     return test.join('')
 }
 
@@ -20,7 +21,7 @@ const calcRows = amnt => {
         while (rowLength < amnt) {
             const row = `<div class="hex-row">${rowHTML(rowLength)}</div>`
             rowLength++
-            console.log(rowLength)
+
             return row
         }
     })
@@ -39,6 +40,6 @@ const render = (arr, container) => {
 
 window.onload = () => {
     const container = document.getElementById('hex-container')
-    const rows = calcRows(6)
+    const rows = calcRows(8)
     render(rows, container)
 }
