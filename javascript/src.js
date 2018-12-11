@@ -17,11 +17,10 @@ const calcRows = amnt => {
 
     const diamondArr = arr.concat(arr.map((v) => {
         return (v + arr.length === arr.length) ? arr.length : arr[arr.length - v]
-    })).concat(0)
+    }))
 
-    const rows = diamondArr.map((v, i) => {
-            console.log(diamondArr[v])
-            return `<div class="hex-row">${rowHTML(v)}</div>`
+    const rows = diamondArr.filter(v => v > 0).map((v) => {
+        return `<div class="hex-row">${rowHTML(v)}</div>`
     })
 
     return rows
