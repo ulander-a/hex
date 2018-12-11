@@ -15,23 +15,11 @@ const calcRows = amnt => {
         return i
     })
 
-    const newArr = arr.concat(arr.map((v, i) => {
-        return arr[arr.length - i]
-    }))
-    
-    console.log(newArr)
-    // concat array with itself in reverse
+    const diamondArr = arr.concat(arr.map((v) => {
+        return (v + arr.length === arr.length) ? arr.length : arr[arr.length - v]
+    })).concat(0)
 
-    // const grid = arr.concat(arr)
-    // console.log(grid) 
-
-    // const rows = [...Array(amnt)].map(() => {
-    //     while (rowLength < amnt) {
-    //         const row = `<div class="hex-row">${rowHTML(rowLength)}</div>`
-    //         rowLength++
-    //         return row
-    //     }
-    // })
+    console.log(diamondArr)
 
     // return rows
 }
