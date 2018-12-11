@@ -19,9 +19,12 @@ const calcRows = amnt => {
         return (v + arr.length === arr.length) ? arr.length : arr[arr.length - v]
     })).concat(0)
 
-    console.log(diamondArr)
+    const rows = diamondArr.map((v, i) => {
+            console.log(diamondArr[v])
+            return `<div class="hex-row">${rowHTML(v)}</div>`
+    })
 
-    // return rows
+    return rows
 }
 
 const render = (array, container) => {
@@ -35,6 +38,6 @@ const render = (array, container) => {
 
 window.onload = () => {
     const container = document.getElementById('hex-container')
-    const rows = calcRows(21)
-    // render(rows, container)
+    const rows = calcRows(5)
+    render(rows, container)
 }
