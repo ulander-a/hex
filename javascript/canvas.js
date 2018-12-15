@@ -1,5 +1,5 @@
 const calcHex = (center, size, i) => {
-    const angleDeg = 60 * i - 30
+    const angleDeg = 60 * i
     const angleRad = Math.PI / 180 * angleDeg
     const x = center.x + size * Math.cos(angleRad)
     const y = center.y + size * Math.sin(angleRad)
@@ -7,10 +7,18 @@ const calcHex = (center, size, i) => {
 }
 
 const hexToPixel = (hex, size = 20) => {
-    const hexOrigin = {x: 300, y: 300}
-    const x = size * (Math.sqrt(3) * hex.c + Math.sqrt(3) / 2 * hex.r) + hexOrigin.x
-    const y = size * (3. / 2 * hex.r) + hexOrigin.y
+    const hexOrigin = { x: 30, y: 30 }
+    const x = size * (3. / 2 * hex.c) + hexOrigin.x
+    const y = size * (Math.sqrt(3) / 2 * hex.c + Math.sqrt(3) * hex.r) + hexOrigin.y
     return point(x, y)
+}
+
+const getHexParameters = size => {
+    const height = size * 2
+    const width = Math.sqrt(3) / 2 * height
+    const vertDist = height * 3 / 4
+    const horizDist = width
+    return { width, height, vertDist, horizDist }
 }
 
 const point = (x, y) => {
@@ -43,23 +51,37 @@ const drawLine = (canvas, start, end) => {
 }
 
 const drawHexes = canvas => {
-    for (let r = 0; r <= 4; r++) {
-        for (let c = 0; c <= 4; c++) {
-            let center = hexToPixel(hex(r, c))
-            drawHex(canvas, center)
-            drawCoordinates(canvas, center, hex(c, r))
+    const canvasSize = { w: 800, h: 600 }
+    let hexes = []
+    let row = 0
+    let y = 0.0
+
+    while (y + 20 <= canvasSize.height) {
+        let col = 0
+        let offset = 0.0
+        if (row % 2 == 1) {
+            offset =
         }
     }
+
+    // const hexParameters = getHexParameters(20)
+    // return [...Array(10)].map((v, r) => {
+    //     [...Array(10)].map((v, c) => {
+    //         const center = hexToPixel(hex(r, c))
+    //         drawHex(canvas, center)
+    //         drawCoordinates(canvas, center, hex(r, c))
+    //     })
+    // })
 }
 
 const drawCoordinates = (canvas, center, hex) => {
     const ctx = canvas.getContext('2d')
-    ctx.fillText(hex.c, center.x-10, center.y)
-    ctx.fillText(hex.r, center.x+5, center.y)
+    ctx.fillText(hex.c, center.x - 10, center.y)
+    ctx.fillText(':', center.x, center.y)
+    ctx.fillText(hex.r, center.x + 5, center.y)
 }
 
 window.onload = () => {
     const canvas = document.getElementById('hex-container')
-    // return drawHex(canvas, { x: 50, y: 50 })
     return drawHexes(canvas)
 }
