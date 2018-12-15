@@ -6,6 +6,6 @@ main {
 
 #hex-container {
     border: 3px solid black;
-    width: 1440px;
-    height: 720px;
+    /* width: 1440px;
+    height: 720px; */
 }
