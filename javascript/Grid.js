@@ -72,14 +72,11 @@ HT.Grid.prototype.GetHexId = function (row, col) {
  * @return {HT.Hexagon}
  */
 HT.Grid.prototype.GetHexAt = function (/*Point*/ p) {
-	//find the hex that contains this point
 	for (var h in this.Hexes) {
-		if (this.Hexes[h].Contains(p)) {
-			return this.Hexes[h];
-		}
-	}
-
-	return null;
+		if (this.Hexes[h].MidPoint.X == p.X && this.Hexes[h].MidPoint.Y == p.Y) {
+			console.log(this.Hexes[h])
+		}	else { return null }
+	} 
 };
 
 /**
