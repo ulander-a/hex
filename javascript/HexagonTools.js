@@ -198,7 +198,6 @@ hexDimensions = {
 	HEIGHT: 86, 
 	WIDTH: 100, 
 	SIDE: 50.0, 
-	ORIENTATION: HT.Hexagon.Orientation.Normal, 
 	DRAWSTATS: false
 };
 //hexagons will have 25 unit sides for now

@@ -2,88 +2,67 @@
  * A Grid is the model of the playfield containing hexes
  * @constructor
  */
-HT.Grid = function(/*double*/ width, /*double*/ height) {
-	
+HT.Grid = function (/*double*/ width, /*double*/ height) {
+
 	this.Hexes = [];
 	//setup a dictionary for use later for assigning the X or Y CoOrd (depending on Orientation)
 	var HexagonsByXOrYCoOrd = {}; //Dictionary<int, List<Hexagon>>
 
 	var row = 0;
 	var y = 0.0;
-	while (y + hexDimensions.HEIGHT <= height)
-	{
+
+	while (y + hexDimensions.HEIGHT <= height) {
 		var col = 0;
 
 		var offset = 0.0;
-		if (row % 2 == 1)
-		{
-			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
-				offset = (hexDimensions.WIDTH - hexDimensions.SIDE)/2 + hexDimensions.SIDE;
-			else
-				offset = hexDimensions.WIDTH / 2;
+		if (row % 2 == 1) {
+			offset = (hexDimensions.WIDTH - hexDimensions.SIDE) / 2 + hexDimensions.SIDE;
 			col = 1;
 		}
-		
+
 		var x = offset;
-		while (x + hexDimensions.WIDTH <= width)
-		{
-		    var hexId = this.GetHexId(row, col);
+		while (x + hexDimensions.WIDTH <= width) {
+			var hexId = this.GetHexId(row, col);
 			var h = new HT.Hexagon(hexId, x, y);
-			
+
 			var pathCoOrd = col;
-			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
-				h.PathCoOrdX = col;//the column is the x coordinate of the hex, for the y coordinate we need to get more fancy
-			else {
-				h.PathCoOrdY = row;
-				pathCoOrd = row;
-			}
-			
+			h.PathCoOrdX = col;//the column is the x coordinate of the hex, for the y coordinate we need to get more fancy
+
 			this.Hexes.push(h);
-			
+
 			if (!HexagonsByXOrYCoOrd[pathCoOrd])
 				HexagonsByXOrYCoOrd[pathCoOrd] = [];
 			HexagonsByXOrYCoOrd[pathCoOrd].push(h);
 
-			col+=2;
-			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
-				x += hexDimensions.WIDTH + hexDimensions.SIDE;
-			else
-				x += hexDimensions.WIDTH;
+			col += 2;
+			x += hexDimensions.WIDTH + hexDimensions.SIDE;
 		}
 		row++;
-		if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
-			y += hexDimensions.HEIGHT / 2;
-		else
-			y += (hexDimensions.HEIGHT - hexDimensions.SIDE)/2 + hexDimensions.SIDE;
+		y += hexDimensions.HEIGHT / 2;
 	}
 
 	//finally go through our list of hexagons by their x co-ordinate to assign the y co-ordinate
-	for (var coOrd1 in HexagonsByXOrYCoOrd)
-	{
+	for (var coOrd1 in HexagonsByXOrYCoOrd) {
 		var hexagonsByXOrY = HexagonsByXOrYCoOrd[coOrd1];
 		var coOrd2 = Math.floor(coOrd1 / 2) + (coOrd1 % 2);
-		for (var i in hexagonsByXOrY)
-		{
+		for (var i in hexagonsByXOrY) {
 			var h = hexagonsByXOrY[i];//Hexagon
-			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
-				h.PathCoOrdY = coOrd2++;
-			else
-				h.PathCoOrdX = coOrd2++;
+			h.PathCoOrdY = coOrd2++;
+
 		}
 	}
 };
 
-HT.Grid.Static = {Letters:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
+HT.Grid.Static = { Letters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' };
 
-HT.Grid.prototype.GetHexId = function(row, col) {
+HT.Grid.prototype.GetHexId = function (row, col) {
 	var letterIndex = row;
 	var letters = "";
-	while(letterIndex > 25)
-	{
-		letters = HT.Grid.Static.Letters[letterIndex%26] + letters;
+	while (letterIndex > 25) {
+		letters = HT.Grid.Static.Letters[letterIndex % 26] + letters;
 		letterIndex -= 26;
 	}
-		
+
 	return HT.Grid.Static.Letters[letterIndex] + letters + (col + 1);
 };
 
@@ -92,12 +71,10 @@ HT.Grid.prototype.GetHexId = function(row, col) {
  * @this {HT.Grid}
  * @return {HT.Hexagon}
  */
-HT.Grid.prototype.GetHexAt = function(/*Point*/ p) {
+HT.Grid.prototype.GetHexAt = function (/*Point*/ p) {
 	//find the hex that contains this point
-	for (var h in this.Hexes)
-	{
-		if (this.Hexes[h].Contains(p))
-		{
+	for (var h in this.Hexes) {
+		if (this.Hexes[h].Contains(p)) {
 			return this.Hexes[h];
 		}
 	}
@@ -110,7 +87,7 @@ HT.Grid.prototype.GetHexAt = function(/*Point*/ p) {
  * @this {HT.Grid}
  * @return {number}
  */
-HT.Grid.prototype.GetHexDistance = function(/*Hexagon*/ h1, /*Hexagon*/ h2) {
+HT.Grid.prototype.GetHexDistance = function (/*Hexagon*/ h1, /*Hexagon*/ h2) {
 	//a good explanation of this calc can be found here:
 	//http://playtechs.blogspot.com/2007/04/hex-grids.html
 	var deltaX = h1.PathCoOrdX - h2.PathCoOrdX;
@@ -123,11 +100,9 @@ HT.Grid.prototype.GetHexDistance = function(/*Hexagon*/ h1, /*Hexagon*/ h2) {
  * @this {HT.Grid}
  * @return {HT.Hexagon}
  */
-HT.Grid.prototype.GetHexById = function(id) {
-	for(var i in this.Hexes)
-	{
-		if(this.Hexes[i].Id == id)
-		{
+HT.Grid.prototype.GetHexById = function (id) {
+	for (var i in this.Hexes) {
+		if (this.Hexes[i].Id == id) {
 			return this.Hexes[i];
 		}
 	}
@@ -141,7 +116,7 @@ HT.Grid.prototype.GetHexById = function(id) {
 * @param {HT.Point} p the test point 
 * @return {HT.Hexagon}
 */
-HT.Grid.prototype.GetNearestHex = function(/*Point*/ p) {
+HT.Grid.prototype.GetNearestHex = function (/*Point*/ p) {
 
 	var distance;
 	var minDistance = Number.MAX_VALUE;
