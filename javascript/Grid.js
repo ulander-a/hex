@@ -10,28 +10,28 @@ HT.Grid = function(/*double*/ width, /*double*/ height) {
 
 	var row = 0;
 	var y = 0.0;
-	while (y + HT.Hexagon.Static.HEIGHT <= height)
+	while (y + hexDimensions.HEIGHT <= height)
 	{
 		var col = 0;
 
 		var offset = 0.0;
 		if (row % 2 == 1)
 		{
-			if(HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-				offset = (HT.Hexagon.Static.WIDTH - HT.Hexagon.Static.SIDE)/2 + HT.Hexagon.Static.SIDE;
+			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
+				offset = (hexDimensions.WIDTH - hexDimensions.SIDE)/2 + hexDimensions.SIDE;
 			else
-				offset = HT.Hexagon.Static.WIDTH / 2;
+				offset = hexDimensions.WIDTH / 2;
 			col = 1;
 		}
 		
 		var x = offset;
-		while (x + HT.Hexagon.Static.WIDTH <= width)
+		while (x + hexDimensions.WIDTH <= width)
 		{
 		    var hexId = this.GetHexId(row, col);
 			var h = new HT.Hexagon(hexId, x, y);
 			
 			var pathCoOrd = col;
-			if(HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
+			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
 				h.PathCoOrdX = col;//the column is the x coordinate of the hex, for the y coordinate we need to get more fancy
 			else {
 				h.PathCoOrdY = row;
@@ -45,16 +45,16 @@ HT.Grid = function(/*double*/ width, /*double*/ height) {
 			HexagonsByXOrYCoOrd[pathCoOrd].push(h);
 
 			col+=2;
-			if(HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-				x += HT.Hexagon.Static.WIDTH + HT.Hexagon.Static.SIDE;
+			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
+				x += hexDimensions.WIDTH + hexDimensions.SIDE;
 			else
-				x += HT.Hexagon.Static.WIDTH;
+				x += hexDimensions.WIDTH;
 		}
 		row++;
-		if(HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
-			y += HT.Hexagon.Static.HEIGHT / 2;
+		if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
+			y += hexDimensions.HEIGHT / 2;
 		else
-			y += (HT.Hexagon.Static.HEIGHT - HT.Hexagon.Static.SIDE)/2 + HT.Hexagon.Static.SIDE;
+			y += (hexDimensions.HEIGHT - hexDimensions.SIDE)/2 + hexDimensions.SIDE;
 	}
 
 	//finally go through our list of hexagons by their x co-ordinate to assign the y co-ordinate
@@ -65,7 +65,7 @@ HT.Grid = function(/*double*/ width, /*double*/ height) {
 		for (var i in hexagonsByXOrY)
 		{
 			var h = hexagonsByXOrY[i];//Hexagon
-			if(HT.Hexagon.Static.ORIENTATION == HT.Hexagon.Orientation.Normal)
+			if(hexDimensions.ORIENTATION == HT.Hexagon.Orientation.Normal)
 				h.PathCoOrdY = coOrd2++;
 			else
 				h.PathCoOrdX = coOrd2++;

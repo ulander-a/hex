@@ -27,16 +27,16 @@ const line = (x1, y1, x2, y2) => {
  * @constructor
  */
 HT.Hexagon = function (id, x, y) {
-	const x1 = (HT.Hexagon.Static.WIDTH - HT.Hexagon.Static.SIDE) / 2;
-	const y1 = (HT.Hexagon.Static.HEIGHT / 2);
+	const x1 = (hexDimensions.WIDTH - hexDimensions.SIDE) / 2;
+	const y1 = (hexDimensions.HEIGHT / 2);
 
 	return {
 		Points: [
 			point(x1 + x, y),
-			point(x1 + HT.Hexagon.Static.SIDE + x, y),
-			point(HT.Hexagon.Static.WIDTH + x, y1 + y),
-			point(x1 + HT.Hexagon.Static.SIDE + x, HT.Hexagon.Static.HEIGHT + y),
-			point(x1 + x, HT.Hexagon.Static.HEIGHT + y),
+			point(x1 + hexDimensions.SIDE + x, y),
+			point(hexDimensions.WIDTH + x, y1 + y),
+			point(x1 + hexDimensions.SIDE + x, hexDimensions.HEIGHT + y),
+			point(x1 + x, hexDimensions.HEIGHT + y),
 			point(x, y1 + y)
 		],
 		Id: id,
@@ -45,8 +45,8 @@ HT.Hexagon = function (id, x, y) {
 		x1: x1,
 		y1: y1,
 		TopLeftPoint: point(x, y),
-		BottomRightPoint: point(x + HT.Hexagon.Static.WIDTH, y + HT.Hexagon.Static.HEIGHT),
-		MidPoint: point(x + (HT.Hexagon.Static.WIDTH / 2), y + (HT.Hexagon.Static.HEIGHT / 2)),
+		BottomRightPoint: point(x + hexDimensions.WIDTH, y + hexDimensions.HEIGHT),
+		MidPoint: point(x + (hexDimensions.WIDTH / 2), y + (hexDimensions.HEIGHT / 2)),
 		P1: point(x + x1, y + y1),
 		selected: false
 	}
@@ -57,7 +57,7 @@ HT.Hexagon = function (id, x, y) {
  * @this {HT.Hexagon}
  */
 const renderHex = (hex, ctx) => {
-	
+
 	if (!hex.selected)
 		ctx.strokeStyle = "grey";
 	else
@@ -92,7 +92,7 @@ const renderHex = (hex, ctx) => {
 		ctx.fillText("(" + hex.PathCoOrdX + "," + hex.PathCoOrdY + ")", hex.MidPoint.X, hex.MidPoint.Y + 10);
 	}
 
-	if (HT.Hexagon.Static.DRAWSTATS) {
+	if (hexDimensions.DRAWSTATS) {
 		ctx.strokeStyle = "black";
 		ctx.lineWidth = 2;
 		//draw our x1, y1, and z
@@ -111,7 +111,7 @@ const renderHex = (hex, ctx) => {
 		ctx.fillText("z", hex.x + hex.x1 / 2 - 8, hex.y + hex.y1 / 2);
 		ctx.fillText("x", hex.x + hex.x1 / 2, hex.P1.Y + 10);
 		ctx.fillText("y", hex.P1.X + 2, hex.y + hex.y1 / 2);
-		ctx.fillText("z = " + HT.Hexagon.Static.SIDE, hex.P1.X, hex.P1.Y + hex.y1 + 10);
+		ctx.fillText("z = " + hexDimensions.SIDE, hex.P1.X, hex.P1.Y + hex.y1 + 10);
 		ctx.fillText("(" + hex.x1.toFixed(2) + "," + hex.y1.toFixed(2) + ")", hex.P1.X, hex.P1.Y + 10);
 	}
 };
@@ -194,12 +194,13 @@ HT.Hexagon.Orientation = {
 	Rotated: 1
 };
 
-HT.Hexagon.Static = {
-	HEIGHT: 91.14378277661477
-	, WIDTH: 91.14378277661477
-	, SIDE: 50.0
-	, ORIENTATION: HT.Hexagon.Orientation.Normal
-	, DRAWSTATS: false
-};//hexagons will have 25 unit sides for now
+hexDimensions = {
+	HEIGHT: 86, 
+	WIDTH: 100, 
+	SIDE: 50.0, 
+	ORIENTATION: HT.Hexagon.Orientation.Normal, 
+	DRAWSTATS: false
+};
+//hexagons will have 25 unit sides for now
 
 
