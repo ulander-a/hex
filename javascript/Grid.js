@@ -73,9 +73,12 @@ HT.Grid.prototype.GetHexId = function (row, col) {
  */
 HT.Grid.prototype.GetHexAt = function (/*Point*/ p) {
 	for (var h in this.Hexes) {
-		if (this.Hexes[h].MidPoint.X == p.X && this.Hexes[h].MidPoint.Y == p.Y) {
-			console.log(this.Hexes[h])
-		}	else { return null }
+		if (this.Hexes[h].isInHexBounds(p)) {
+			console.log('SUCCESS!', this.Hexes[h])
+		}
+		// if (this.Hexes[h].MidPoint.X == p.X && this.Hexes[h].MidPoint.Y == p.Y) {
+		// 	console.log(this.Hexes[h])
+		// }	else { return null }
 	} 
 };
 

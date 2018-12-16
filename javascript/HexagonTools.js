@@ -21,36 +21,63 @@ const line = (x1, y1, x2, y2) => {
 		Y2: y2
 	}
 }
-
-/**
- * A Hexagon is a 6 sided polygon, our hexes don't have to be symmetrical, i.e. ratio of width to height could be 4 to 3
- * @constructor
- */
 HT.Hexagon = function (id, x, y) {
-	const x1 = (hexDimensions.WIDTH - hexDimensions.SIDE) / 2;
-	const y1 = (hexDimensions.HEIGHT / 2);
+	this.Points = [];//Polygon Base
+	var x1 = null;
+	var y1 = null;
+	x1 = (hexDimensions.WIDTH - hexDimensions.SIDE) / 2;
+	y1 = (hexDimensions.HEIGHT / 2);
+	this.Points.push(point(x1 + x, y));
+	this.Points.push(point(x1 + hexDimensions.SIDE + x, y));
+	this.Points.push(point(hexDimensions.WIDTH + x, y1 + y));
+	this.Points.push(point(x1 + hexDimensions.SIDE + x, hexDimensions.HEIGHT + y));
+	this.Points.push(point(x1 + x, hexDimensions.HEIGHT + y));
+	this.Points.push(point(x, y1 + y));
 
-	return {
-		Points: [
-			point(x1 + x, y),
-			point(x1 + hexDimensions.SIDE + x, y),
-			point(hexDimensions.WIDTH + x, y1 + y),
-			point(x1 + hexDimensions.SIDE + x, hexDimensions.HEIGHT + y),
-			point(x1 + x, hexDimensions.HEIGHT + y),
-			point(x, y1 + y)
-		],
-		Id: id,
-		x: x,
-		y: y,
-		x1: x1,
-		y1: y1,
-		TopLeftPoint: point(x, y),
-		BottomRightPoint: point(x + hexDimensions.WIDTH, y + hexDimensions.HEIGHT),
-		MidPoint: point(x + (hexDimensions.WIDTH / 2), y + (hexDimensions.HEIGHT / 2)),
-		P1: point(x + x1, y + y1),
-		selected: false
-	}
+	this.Id = id;
+
+	this.x = x;
+	this.y = y;
+	this.x1 = x1;
+	this.y1 = y1;
+
+	this.TopLeftPoint = point(this.x, this.y);
+	this.BottomRightPoint = point(this.x + hexDimensions.WIDTH, this.y + hexDimensions.HEIGHT);
+	this.MidPoint = point(this.x + (hexDimensions.WIDTH / 2), this.y + (hexDimensions.HEIGHT / 2));
+
+	this.P1 = point(x + x1, y + y1);
+
+	this.selected = false;
 };
+// /**
+//  * A Hexagon is a 6 sided polygon, our hexes don't have to be symmetrical, i.e. ratio of width to height could be 4 to 3
+//  * @constructor
+//  */
+// HT.Hexagon = function (id, x, y) {
+// 	const x1 = (hexDimensions.WIDTH - hexDimensions.SIDE) / 2;
+// 	const y1 = (hexDimensions.HEIGHT / 2);
+
+// 	return {
+// 		Points: [
+// 			point(x1 + x, y),
+// 			point(x1 + hexDimensions.SIDE + x, y),
+// 			point(hexDimensions.WIDTH + x, y1 + y),
+// 			point(x1 + hexDimensions.SIDE + x, hexDimensions.HEIGHT + y),
+// 			point(x1 + x, hexDimensions.HEIGHT + y),
+// 			point(x, y1 + y)
+// 		],
+// 		Id: id,
+// 		x: x,
+// 		y: y,
+// 		x1: x1,
+// 		y1: y1,
+// 		TopLeftPoint: point(x, y),
+// 		BottomRightPoint: point(x + hexDimensions.WIDTH, y + hexDimensions.HEIGHT),
+// 		MidPoint: point(x + (hexDimensions.WIDTH / 2), y + (hexDimensions.HEIGHT / 2)),
+// 		P1: point(x + x1, y + y1),
+// 		selected: false
+// 	}
+// };
 
 /**
  * draws this Hexagon to the canvas
@@ -122,7 +149,7 @@ const renderHex = (hex, ctx) => {
  * @return {boolean}
  */
 HT.Hexagon.prototype.isInBounds = function (x, y) {
-	return this.Contains(new HT.Point(x, y));
+	return this.Contains(point(x, y));
 };
 
 
@@ -153,7 +180,7 @@ HT.Hexagon.prototype.Contains = function (/*Point*/ p) {
 	var isIn = false;
 	if (this.isInHexBounds(p)) {
 		//turn our absolute point into a relative point for comparing with the polygon's points
-		//var pRel = new HT.Point(p.X - this.x, p.Y - this.y);
+		//var pRel = point(p.X - this.x, p.Y - this.y);
 		var i, j = 0;
 		for (i = 0, j = this.Points.length - 1; i < this.Points.length; j = i++) {
 			var iP = this.Points[i];
@@ -195,9 +222,9 @@ HT.Hexagon.Orientation = {
 };
 
 hexDimensions = {
-	HEIGHT: 86, 
-	WIDTH: 100, 
-	SIDE: 50.0, 
+	HEIGHT: 86,
+	WIDTH: 100,
+	SIDE: 50.0,
 	DRAWSTATS: false
 };
 //hexagons will have 25 unit sides for now

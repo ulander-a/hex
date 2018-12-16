@@ -15,8 +15,7 @@ const drawHexGrid = () => {
 
   canvas.addEventListener('click', function(evt) {
     var mousePos = getMousePos(canvas, evt);
-    var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-    console.log(message)
+    grid.GetHexAt(point(mousePos.x, mousePos.y))
   }, false);
   
   return grid.Hexes.map((v) => {
