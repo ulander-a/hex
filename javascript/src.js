@@ -8,7 +8,7 @@ function getMousePos(canvas, evt) {
 
 
 const drawHexGrid = canvas => {
-  const grid = new HT.Grid(800, 600);
+  const grid = new Grid(800, 600);
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, 800, 600);
 
