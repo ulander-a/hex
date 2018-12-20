@@ -13,14 +13,12 @@ class Grid {
 		var row = 0;
 		var y = 0.0;
 
-		// DAS IT MANE
-		// this.Hexes = repeat = n => f => x =>
-		// 	n === 0 ? x : repeat(n - 1)(f)(f(x))
+
 
 		while (y + hexDimensions.HEIGHT <= height) {
 			var col = 0;
-			console.log(y + hexDimensions.HEIGHT)
 			var offset = 0.0;
+
 			if (row % 2 == 1) {
 				offset = (hexDimensions.WIDTH - hexDimensions.SIDE) / 2 + hexDimensions.SIDE;
 				col = 1;
@@ -31,16 +29,16 @@ class Grid {
 				var hexId = this.GetHexId(row, col);
 				var h = new HT.Hexagon(hexId, x, y);
 
-				var pathCoOrd = col;
-				h.PathCoOrdX = col;//the column is the x coordinate of the hex, for the y coordinate we need to get more fancy
+				// var pathCoOrd = col;
+				// h.PathCoOrdX = col;//the column is the x coordinate of the hex, for the y coordinate we need to get more fancy
 
 				this.Hexes.push(h);
 
-				if (!HexagonsByXOrYCoOrd[pathCoOrd])
-					HexagonsByXOrYCoOrd[pathCoOrd] = [];
-				HexagonsByXOrYCoOrd[pathCoOrd].push(h);
+				// if (!HexagonsByXOrYCoOrd[pathCoOrd])
+				// 	HexagonsByXOrYCoOrd[pathCoOrd] = [];
+				// HexagonsByXOrYCoOrd[pathCoOrd].push(h);
 
-				col += 2;
+				col += 1;
 				x += hexDimensions.WIDTH + hexDimensions.SIDE;
 			}
 			row++;
@@ -48,15 +46,15 @@ class Grid {
 		}
 
 		//finally go through our list of hexagons by their x co-ordinate to assign the y co-ordinate
-		for (var coOrd1 in HexagonsByXOrYCoOrd) {
-			var hexagonsByXOrY = HexagonsByXOrYCoOrd[coOrd1];
-			var coOrd2 = Math.floor(coOrd1 / 2) + (coOrd1 % 2);
-			for (var i in hexagonsByXOrY) {
-				var h = hexagonsByXOrY[i];//Hexagon
-				h.PathCoOrdY = coOrd2++;
+		// for (var coOrd1 in HexagonsByXOrYCoOrd) {
+		// 	var hexagonsByXOrY = HexagonsByXOrYCoOrd[coOrd1];
+		// 	var coOrd2 = Math.floor(coOrd1 / 2) + (coOrd1 % 2);
+		// 	for (var i in hexagonsByXOrY) {
+		// 		var h = hexagonsByXOrY[i];//Hexagon
+		// 		h.PathCoOrdY = coOrd2++;
 
-			}
-		}
+		// 	}
+		// }
 	}
 
 	GetHexId(row, col) {
@@ -67,7 +65,7 @@ class Grid {
 			letterIndex -= 26;
 		}
 
-		return this.Static.Letters[letterIndex] + letters + (col + 1);
+		return this.Static.Letters[letterIndex] + letters + (col);
 	};
 
 	GetHexAt(/*Point*/ p) {
