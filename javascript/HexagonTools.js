@@ -21,7 +21,7 @@ const line = (x1, y1, x2, y2) => {
 		Y2: y2
 	}
 }
-HT.Hexagon = function (id, x, y) {
+HT.Hexagon = (id, x, y) => {
 	this.Points = [];//Polygon Base
 	var x1 = null;
 	var y1 = null;

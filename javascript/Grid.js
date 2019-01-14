@@ -13,8 +13,6 @@ class Grid {
 		var row = 0;
 		var y = 0.0;
 
-
-
 		while (y + hexDimensions.HEIGHT <= height) {
 			var col = 0;
 			var offset = 0.0;
