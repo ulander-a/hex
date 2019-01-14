@@ -1,3 +1,3 @@
-import { test } from './grid'
+import { init } from './grid'
 
-test()
+init()

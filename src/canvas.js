@@ -5,14 +5,19 @@ const graphics = new PIXI.Graphics()
 document.body.appendChild(app.view)
 // set a line style of 1px wide and color #999
 
-function render(grid) {
+function render(grid, highlight = false, highlightCoords = {}) {
+    graphics.clear()
+
     // render hexes
     grid.forEach(hex => {
         graphics.lineStyle(5, 0x999999)
-        if (hex.x == 1 && hex.y == 1) {
-            graphics.beginFill(333333)
-        } else {
-            graphics.endFill()
+
+        if (highlight) {
+            if (hex.x === highlightCoords.x && hex.y === highlightCoords.y) {
+                graphics.beginFill(333333)
+            } else {
+                graphics.endFill()
+            }
         }
 
         const point = hex.toPoint()
