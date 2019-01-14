@@ -1,22 +1,20 @@
 import './style/style.css'
+const Honeycomb = require('honeycomb-grid')
 
-function component() {
-  let element = document.createElement('div')
+// 1.  (optionally) create a Hex factory by extending the default:
+const Hex = Honeycomb.extendHex({
+  size: 30,           // default: 1
+  orientation: 'flat' // default: 'pointy'
+})
 
-  element.innerHTML = 'Hello webpack'
-  element.classList.add('hello')
+// 2.  create a Grid factory that uses the Hex factory:
+const Grid = Honeycomb.defineGrid(Hex)
 
-  return element
-}
-
-let element = component()
-document.body.appendChild(element)
-
-// if (module.hot) {
-//   module.hot.accept('./print.js', (module) => {
-//     console.log('Accepting the updated printMe module!')
-//     document.body.removeChild(element)
-//     element = component
-//     document.body.appendChild(element)
-//   })
-// }
+// 3a. create a grid with a "shape" method:
+const grid1 = Grid.rectangle({ width: 4, height: 4 })
+// [
+//    { x: 0, y: 0 },
+//    { x: 0, y: 1 },
+//    { x: 0, y: 2 },
+//    …
+// ]
