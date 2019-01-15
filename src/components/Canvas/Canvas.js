@@ -20,16 +20,31 @@ export default class Canvas extends PureComponent {
   // }
 
   componentDidMount() {
+    const {
+      GridFactory,
+      shape,
+      width,
+      height
+    } = this.props
+
+    // Add the canvas
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
 
     this.state.graphics.lineStyle(1, 0x999999)
 
-    this.props.grid.rectangle({
-      width: this.props.width,
-      height: this.props.height
-    }).forEach(hex => {
+    // TODO: Add support for different grid shapes
+    const grid = GridFactory.rectangle({
+      width: width,
+      height: height,
+    })
+
+    this.draw(grid)
+  }
+
+  draw(grid) {
+    grid.forEach(hex => {
       const point = hex.toPoint()
       // add the hex's position to each of its corner points
       const corners = hex.corners().map(corner => corner.add(point))
@@ -46,6 +61,10 @@ export default class Canvas extends PureComponent {
       this.state.app.stage.addChild(this.state.graphics)
     });
   }
+
+  // highlight(hex) {
+  //   this.graphics.clear()
+  // }
 
   render() {
     return (
