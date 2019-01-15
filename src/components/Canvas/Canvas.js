@@ -32,8 +32,6 @@ export default class Canvas extends PureComponent {
       this.state.app.view
     )
 
-    this.state.graphics.lineStyle(1, 0x999999)
-
     // TODO: Add support for different grid shapes
     const grid = GridFactory.rectangle({
       width: width,
@@ -41,10 +39,31 @@ export default class Canvas extends PureComponent {
     })
 
     this.draw(grid)
+
+    document.addEventListener('click', ({ offsetX, offsetY }) => {
+      const hexCoordinates = GridFactory.pointToHex([offsetX, offsetY])
+      const highlightCoords = grid.get(hexCoordinates)
+
+      if (highlightCoords) {
+        const highlight = true
+        this.draw(grid, highlightCoords, highlight)
+      }
+    })
   }
 
-  draw(grid) {
+  draw(grid, highlightCoords = null, highlight = false) {
+    this.state.graphics.clear()
+    this.state.graphics.lineStyle(1, 0x999999)
+
     grid.forEach(hex => {
+      if (highlight) {
+        if (hex.x === highlightCoords.x && hex.y === highlightCoords.y) {
+          this.state.graphics.beginFill(0x999999)
+        } else {
+          this.state.graphics.endFill()
+        }
+      }
+
       const point = hex.toPoint()
       // add the hex's position to each of its corner points
       const corners = hex.corners().map(corner => corner.add(point))
@@ -61,10 +80,6 @@ export default class Canvas extends PureComponent {
       this.state.app.stage.addChild(this.state.graphics)
     });
   }
-
-  // highlight(hex) {
-  //   this.graphics.clear()
-  // }
 
   render() {
     return (
