@@ -33,12 +33,14 @@ export default class Grid extends PureComponent {
         } = this.state
 
         return (
-            <Canvas
-                GridFactory={GridFactory}
-                shape={shape}
-                width={width}
-                height={height}
-            />
+            <section>
+                <Canvas
+                    GridFactory={GridFactory}
+                    shape={shape}
+                    width={width}
+                    height={height}
+                />
+            </section>
         )
     }
 }

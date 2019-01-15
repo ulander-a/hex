@@ -22,7 +22,7 @@ export default class Canvas extends PureComponent {
   componentDidMount() {
     const {
       GridFactory,
-      shape,
+      // shape,
       width,
       height
     } = this.props
