@@ -78,7 +78,7 @@ export default class Canvas extends PureComponent {
       this.state.graphics.lineTo(firstCorner.x, firstCorner.y)
 
       this.state.app.stage.addChild(this.state.graphics)
-    });
+    })
   }
 
   render() {

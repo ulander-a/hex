@@ -1,5 +1,5 @@
 import React from 'react'
-import OptionsForm from './OptionsForm'
+import OptionsForm from '../OptionsForm/OptionsForm'
 import './Options.css'
 
 export default function Options() {

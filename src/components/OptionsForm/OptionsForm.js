@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { changeOption, createGrid } from '../Options/actions'
 
-export default class OptionsForm extends Component {
+class OptionsForm extends Component {
   constructor(props) {
     super(props)
 
@@ -18,7 +20,8 @@ export default class OptionsForm extends Component {
     const target = e.target
     const value = target.value
     const id = target.id
-    console.log(id)
+
+    dispatch(changeOption(id))
 
     this.setState({
       [id]: value
@@ -54,3 +57,9 @@ export default class OptionsForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return { option: state.option }
+}
+
+export default connect(mapStateToProps)(OptionsForm)
