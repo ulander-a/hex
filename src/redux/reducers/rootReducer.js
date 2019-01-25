@@ -1,21 +1,20 @@
-// import { CHANGE_OPTION, CREATE_GRID } from '../components/Options/actions'
+import {TEST_ACTION} from '../constants/action-types'
 
-// const defaultState = {
-//   test: 'tjofaderittan hambo!',
-//   option: 'unchanged',
-//   articles: [],
-// }
+const defaultState = {
+    option: 'unchanged',
+    articles: [],
+}
 
-// const rootReducer = (state = defaultState, action) => {
-//   switch (action.type) {
-//     case CHANGE_OPTION:
-//       return {
-//         ...state,
-//         option: 'changed'
-//       }
-//     default:
-//       return state
-//   }
-// }
+const rootReducer = (state = defaultState, action) => {
+    switch (action.type) {
+        case TEST_ACTION:
+            return {
+                ...state,
+                option: 'changed'
+            }
+        default:
+            return state
+    }
+}
 
-// export default rootReducer
+export default rootReducer
