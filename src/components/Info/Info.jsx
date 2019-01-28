@@ -1,10 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux';
 
-export default function Info() {
-  return (
-    <aside>
-      <h2>Info:</h2>
-      <p>Selected hex: <span>0, 0</span></p>
-    </aside>
-  )
+const Info = ({ selected }) => (
+  <aside>
+    <h2>Info:</h2>
+    <p>
+      Selected hex:&nbsp;
+      <span>{selected.x}</span>
+      ,&nbsp;
+      <span>{selected.y}</span>
+      </p>
+  </aside>
+)
+
+const mapStateToProps = state => {
+  return {
+    selected: state.rootReducer.highlighted
+  }
 }
+
+export default connect(mapStateToProps)(Info)

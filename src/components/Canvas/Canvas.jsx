@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 import * as PIXI from 'pixi.js'
+import { highlightHex } from '../../redux/actions';
 
-export default class Canvas extends PureComponent {
+class Canvas extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -19,6 +21,7 @@ export default class Canvas extends PureComponent {
 
   // }
 
+  // TODO: REFACTOR TO DECREASE REPETITION
   componentDidMount() {
     const {
       GridFactory,
@@ -31,6 +34,34 @@ export default class Canvas extends PureComponent {
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
+
+    // TODO: Add support for different grid shapes
+    const grid = GridFactory.rectangle({
+      width: width,
+      height: height,
+    })
+
+    this.draw(grid)
+
+    document.addEventListener('click', ({ offsetX, offsetY }) => {
+      const hexCoordinates = GridFactory.pointToHex([offsetX, offsetY])
+      const highlightCoords = grid.get(hexCoordinates)
+
+      if (highlightCoords) {
+        const highlight = true
+        this.draw(grid, highlightCoords, highlight)
+        this.props.dispatch(highlightHex(highlightCoords))
+      }
+    })
+  }
+
+  componentDidUpdate() {
+    const {
+      GridFactory,
+      // shape,
+      width,
+      height
+    } = this.props
 
     // TODO: Add support for different grid shapes
     const grid = GridFactory.rectangle({
@@ -89,3 +120,5 @@ export default class Canvas extends PureComponent {
     )
   }
 }
+
+export default connect()(Canvas)

@@ -1,4 +1,4 @@
-import { CHANGE_OPTION } from '../constants/action-types'
+import { CREATE_GRID, HIGHLIGHT_HEX } from '../constants/action-types'
 
 const defaultState = {
     options: {
@@ -6,16 +6,21 @@ const defaultState = {
         height: 5,
         shape: 'rectangle'
     },
-    grid: []
+    grid: [],
+    highlighted: {}
 }
 
 const rootReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case CHANGE_OPTION:
-            console.log('nani?!', action)
+        case CREATE_GRID:
             return {
                 ...state,
                 options: action.payload
+            }
+        case HIGHLIGHT_HEX:
+            return {
+                ...state,
+                highlighted: action.payload
             }
         default:
             return state
