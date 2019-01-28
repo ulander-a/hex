@@ -1,33 +1,41 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { changeOption } from '../../redux/actions'
 
-export default class OptionsForm extends Component {
+class OptionsForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      width: 5,
-      height: 5,
+      width: this.props.options.width,
+      height: this.props.options.height,
       shape: 'rectangle',
     }
 
     this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
     const target = e.target
     const value = target.value
     const id = target.id
-    console.log(id)
 
     this.setState({
       [id]: value
     })
+
+    // HMM...
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    console.log(e)
   }
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <label htmlFor="width">Width:</label>
         <input
           id="width"
@@ -54,3 +62,11 @@ export default class OptionsForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    options: state.rootReducer.options
+  }
+}
+
+export default connect(mapStateToProps)(OptionsForm)
