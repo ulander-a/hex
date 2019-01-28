@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import HexForm from '../HexForm/HexForm';
 
 const Info = ({ selected }) => (
   <aside>
@@ -10,6 +11,7 @@ const Info = ({ selected }) => (
       ,&nbsp;
       <span>{selected.y}</span>
       </p>
+      <HexForm />
   </aside>
 )
 
