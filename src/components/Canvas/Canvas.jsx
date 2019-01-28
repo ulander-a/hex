@@ -19,6 +19,7 @@ export default class Canvas extends PureComponent {
 
   // }
 
+  // TODO: REFACTOR TO DECREASE REPETITION
   componentDidMount() {
     const {
       GridFactory,
@@ -31,6 +32,33 @@ export default class Canvas extends PureComponent {
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
+
+    // TODO: Add support for different grid shapes
+    const grid = GridFactory.rectangle({
+      width: width,
+      height: height,
+    })
+
+    this.draw(grid)
+
+    document.addEventListener('click', ({ offsetX, offsetY }) => {
+      const hexCoordinates = GridFactory.pointToHex([offsetX, offsetY])
+      const highlightCoords = grid.get(hexCoordinates)
+
+      if (highlightCoords) {
+        const highlight = true
+        this.draw(grid, highlightCoords, highlight)
+      }
+    })
+  }
+
+  componentDidUpdate() {
+    const {
+      GridFactory,
+      // shape,
+      width,
+      height
+    } = this.props
 
     // TODO: Add support for different grid shapes
     const grid = GridFactory.rectangle({

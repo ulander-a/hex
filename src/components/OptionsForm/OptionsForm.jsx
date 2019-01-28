@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changeOption } from '../../redux/actions'
+import { changeOption, createGrid } from '../../redux/actions'
 
 class OptionsForm extends Component {
   constructor(props) {
@@ -29,8 +29,9 @@ class OptionsForm extends Component {
   }
 
   handleSubmit(e) {
+    const options = this.state
     e.preventDefault()
-    console.log(e)
+    this.props.dispatch(createGrid(options))
   }
 
   render() {

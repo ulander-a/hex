@@ -1,15 +1,20 @@
 import React, { PureComponent } from 'react'
 import { Canvas } from '../index'
+import { connect } from 'react-redux'
+import './Grid.css'
+
 const Honeycomb = require('honeycomb-grid')
 
-export default class Grid extends PureComponent {
+class Grid extends PureComponent {
     constructor(props) {
         super(props)
 
         this.state = {
-            shape: 'rectangle',
-            width: 5,
-            height: 5,
+            // options: {
+            //     shape: 'rectangle',
+            //     width: 5,
+            //     height: 5,
+            // },
             HexFactory: Honeycomb.extendHex({
                 size: 50,
                 orientation: 'flat'
@@ -25,12 +30,8 @@ export default class Grid extends PureComponent {
     }
 
     render() {
-        const {
-            GridFactory,
-            shape,
-            width,
-            height
-        } = this.state
+        const { GridFactory } = this.state
+        const { shape, width, height } = this.props.options
 
         return (
             <section>
@@ -44,3 +45,11 @@ export default class Grid extends PureComponent {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        options: state.rootReducer.options
+    }
+}
+
+export default connect(mapStateToProps)(Grid)

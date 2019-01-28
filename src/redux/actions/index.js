@@ -13,7 +13,8 @@ export const changeOption = options => ({
     payload: options
 })
 
-// export const createGrid = options => ({
-//     type: CREATE_GRID_START,
-//     payload: options
-// })
+export const createGrid = options => ({
+    type: CREATE_GRID,
+    payload: options
+})
+

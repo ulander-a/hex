@@ -1,4 +1,4 @@
-import { CHANGE_OPTION } from '../constants/action-types'
+import { CHANGE_OPTION, CREATE_GRID } from '../constants/action-types'
 
 const defaultState = {
     options: {
@@ -12,7 +12,11 @@ const defaultState = {
 const rootReducer = (state = defaultState, action) => {
     switch (action.type) {
         case CHANGE_OPTION:
-            console.log('nani?!', action)
+            return {
+                ...state,
+                options: action.payload
+            }
+        case CREATE_GRID:
             return {
                 ...state,
                 options: action.payload
