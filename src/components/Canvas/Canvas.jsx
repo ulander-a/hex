@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 import * as PIXI from 'pixi.js'
+import { highlightHex } from '../../redux/actions';
 
-export default class Canvas extends PureComponent {
+class Canvas extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -48,6 +50,7 @@ export default class Canvas extends PureComponent {
       if (highlightCoords) {
         const highlight = true
         this.draw(grid, highlightCoords, highlight)
+        this.props.dispatch(highlightHex(highlightCoords))
       }
     })
   }
@@ -117,3 +120,5 @@ export default class Canvas extends PureComponent {
     )
   }
 }
+
+export default connect()(Canvas)

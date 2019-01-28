@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changeOption, createGrid } from '../../redux/actions'
+import { createGrid } from '../../redux/actions'
 
 class OptionsForm extends Component {
   constructor(props) {
