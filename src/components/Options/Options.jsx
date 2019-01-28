@@ -3,16 +3,11 @@ import OptionsForm from '../OptionsForm/OptionsForm'
 import './Options.css'
 import { connect } from 'react-redux'
 
-const mapStateToProps = state => ({
-  option: state.rootReducer.option
-})
-
-const Options = ({ option }) => (
+const Options = () => (
   <aside className="options">
     <h2>Options:</h2>
-    <p>{option}</p>
-    {/* <OptionsForm /> */}
+    <OptionsForm />
   </aside>
 )
 
-export default connect(mapStateToProps)(Options)
+export default Options

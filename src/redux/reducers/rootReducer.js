@@ -1,16 +1,21 @@
-import {TEST_ACTION} from '../constants/action-types'
+import { CHANGE_OPTION } from '../constants/action-types'
 
 const defaultState = {
-    option: 'unchanged',
-    articles: [],
+    options: {
+        width: 5,
+        height: 5,
+        shape: 'rectangle'
+    },
+    grid: []
 }
 
 const rootReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case TEST_ACTION:
+        case CHANGE_OPTION:
+            console.log('nani?!', action)
             return {
                 ...state,
-                option: 'changed'
+                options: action.payload
             }
         default:
             return state
