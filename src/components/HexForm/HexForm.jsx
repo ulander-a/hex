@@ -12,6 +12,9 @@ export class HexForm extends Component {
         { element: 'input', id: 'terrain', type: 'text', label: 'Terrain', value: 'plains' },
       ]
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit(e) {
@@ -20,6 +23,18 @@ export class HexForm extends Component {
 
   handleChange(e) {
     e.preventDefault()
+    const target = e.target
+    const { value, id } = target
+    const field = Object.assign(
+      {}, this.state.fields.find(field => field.id === id), { value: value }
+    )
+    
+    this.setState({
+      fields: [
+        ...this.state.fields,
+        field
+      ]
+    })
   }
 
   render() {
