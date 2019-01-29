@@ -93,7 +93,6 @@ class Canvas extends PureComponent {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div id="canvas-container">
 
