@@ -7,7 +7,14 @@ const defaultState = {
         shape: 'rectangle'
     },
     grid: [],
-    highlighted: {}
+    hex: {
+        isHighlighted: false,
+        coordinates: {},
+        data: {
+            name: 'chungus',
+            terrain: '2019 jazz'
+        }
+    }
 }
 
 const rootReducer = (state = defaultState, action) => {
@@ -20,7 +27,15 @@ const rootReducer = (state = defaultState, action) => {
         case HIGHLIGHT_HEX:
             return {
                 ...state,
-                highlighted: action.payload
+                hex: {
+                    ...state,
+                    isHighlighted: true,
+                    coordinates: action.payload,
+                    data: {
+                        name: '',
+                        terrain: ''
+                    }
+                }
             }
         default:
             return state

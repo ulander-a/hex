@@ -8,9 +8,18 @@ export class HexForm extends Component {
 
     this.state = {
       fields: [
-        { element: 'input', id: 'name', type: 'text', label: 'Name', value: 'bby pls' }
+        { element: 'input', id: 'name', type: 'text', label: 'Name', value: 'unnamed' },
+        { element: 'input', id: 'terrain', type: 'text', label: 'Terrain', value: 'plains' },
       ]
     }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+  }
+
+  handleChange(e) {
+    e.preventDefault()
   }
 
   render() {
@@ -18,9 +27,14 @@ export class HexForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        {fields.map((field, i) => (
-          <input key={i} id={field.id} type={field.type} value={field.value} onChange={this.handleChange} />
-        ))}
+        {
+          fields.map((field, i) =>
+            <div key={i}>
+              <label htmlFor={field.id}>{field.label}</label>
+              <input id={field.id} type={field.type} value={field.value} onChange={this.handleChange} />
+            </div>
+          )
+        }
         <button type="submit">Save</button>
       </form>
     )

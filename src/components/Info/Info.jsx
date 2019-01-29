@@ -2,22 +2,24 @@ import React from 'react'
 import { connect } from 'react-redux';
 import HexForm from '../HexForm/HexForm';
 
-const Info = ({ selected }) => (
+const Info = ({ hex }) => (
   <aside>
     <h2>Info:</h2>
     <p>
       Selected hex:&nbsp;
-      <span>{selected.x}</span>
+      <span>{hex.coordinates.x}</span>
       ,&nbsp;
-      <span>{selected.y}</span>
-      </p>
+      <span>{hex.coordinates.y}</span>
+    </p>
+      <p>Name: <span>{hex.data.name}</span></p>
+      <p>Terrain: <span>{hex.data.terrain}</span></p>
       <HexForm />
   </aside>
 )
 
 const mapStateToProps = state => {
   return {
-    selected: state.rootReducer.highlighted
+    hex: state.rootReducer.hex
   }
 }
 

@@ -23,61 +23,41 @@ class Canvas extends PureComponent {
 
   // TODO: REFACTOR TO DECREASE REPETITION
   componentDidMount() {
-    const {
-      GridFactory,
-      // shape,
-      width,
-      height
-    } = this.props
-
     // Add the canvas
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
 
     // TODO: Add support for different grid shapes
-    const grid = GridFactory.rectangle({
-      width: width,
-      height: height,
-    })
+    // const grid = GridFactory.rectangle({
+    //   width: width,
+    //   height: height,
+    // })
 
-    this.draw(grid)
+    this.draw(this.props.grid)
 
     document.addEventListener('click', ({ offsetX, offsetY }) => {
-      const hexCoordinates = GridFactory.pointToHex([offsetX, offsetY])
-      const highlightCoords = grid.get(hexCoordinates)
+      const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
+      const highlightCoords = this.props.grid.get(hexCoordinates)
 
       if (highlightCoords) {
         const highlight = true
-        this.draw(grid, highlightCoords, highlight)
+        this.draw(this.props.grid, highlightCoords, highlight)
         this.props.dispatch(highlightHex(highlightCoords))
       }
     })
   }
 
   componentDidUpdate() {
-    const {
-      GridFactory,
-      // shape,
-      width,
-      height
-    } = this.props
-
-    // TODO: Add support for different grid shapes
-    const grid = GridFactory.rectangle({
-      width: width,
-      height: height,
-    })
-
-    this.draw(grid)
+    this.draw(this.props.grid)
 
     document.addEventListener('click', ({ offsetX, offsetY }) => {
-      const hexCoordinates = GridFactory.pointToHex([offsetX, offsetY])
-      const highlightCoords = grid.get(hexCoordinates)
+      const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
+      const highlightCoords = this.props.grid.get(hexCoordinates)
 
       if (highlightCoords) {
         const highlight = true
-        this.draw(grid, highlightCoords, highlight)
+        this.draw(this.props.grid, highlightCoords, highlight)
       }
     })
   }
@@ -113,6 +93,7 @@ class Canvas extends PureComponent {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div id="canvas-container">
 
