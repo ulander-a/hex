@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 // IMPORT ACTIONS HERE
 
 export class HexForm extends Component {
@@ -8,9 +8,26 @@ export class HexForm extends Component {
 
     this.state = {
       fields: [
-        { element: 'input', id: 'name', type: 'text', label: 'Name', value: 'bby pls' }
+        { element: 'input', id: 'name', type: 'text', label: 'Name', value: 'unnamed' },
+        { element: 'input', id: 'terrain', type: 'text', label: 'Terrain', value: 'plains' },
       ]
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+  }
+
+  handleChange = idx => e => {
+    const newFields = this.state.fields.map((field, fidx) => {
+      if (idx !== fidx) return field
+      return { ...field, value: e.target.value }
+    })
+
+    this.setState({fields: newFields})
   }
 
   render() {
@@ -18,9 +35,14 @@ export class HexForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        {fields.map((field, i) => (
-          <input key={i} id={field.id} type={field.type} value={field.value} onChange={this.handleChange} />
-        ))}
+        {
+          fields.map((field, idx) =>
+            <div key={idx}>
+              <label htmlFor={field.id}>{field.label}</label>
+              <input id={field.id} type={field.type} value={field.value} onChange={this.handleChange(idx)} />
+            </div>
+          )
+        }
         <button type="submit">Save</button>
       </form>
     )

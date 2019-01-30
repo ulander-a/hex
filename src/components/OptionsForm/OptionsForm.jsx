@@ -18,8 +18,7 @@ class OptionsForm extends Component {
 
   handleChange(e) {
     const target = e.target
-    const value = target.value
-    const id = target.id
+    const { value, id } = target
 
     this.setState({
       [id]: value

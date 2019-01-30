@@ -20,6 +20,7 @@ class Grid extends PureComponent {
                 orientation: 'flat'
             }),
             GridFactory: {},
+            grid: []
         }
     }
 
@@ -29,18 +30,28 @@ class Grid extends PureComponent {
         })
     }
 
+    componentDidMount() {
+        const gridData = this.state.GridFactory.rectangle({
+             width: 5,
+             height: 5
+        })
+
+        gridData.forEach(element => {
+            element.data = {
+                name: 'unnamed',
+                terrain: 'plains'
+            }
+        });
+
+        this.setState({...this.state, grid: gridData})
+    }
+
     render() {
-        const { GridFactory } = this.state
-        const { shape, width, height } = this.props.options
+        const { grid, GridFactory } = this.state
 
         return (
             <section>
-                <Canvas
-                    GridFactory={GridFactory}
-                    shape={shape}
-                    width={width}
-                    height={height}
-                />
+                <Canvas GridFactory={GridFactory} grid={grid} />
             </section>
         )
     }

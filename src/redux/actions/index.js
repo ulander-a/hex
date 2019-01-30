@@ -2,6 +2,7 @@ import {
     TEST_ACTION,
     CREATE_GRID,
     HIGHLIGHT_HEX,
+    ADD_DATA_TO_HEX,
 } from '../constants/action-types'
 
 export function test(payload) {
@@ -20,5 +21,10 @@ export const createGrid = options => ({
 
 export const highlightHex = hex => ({
     type: HIGHLIGHT_HEX,
+    payload: hex
+})
+
+export const addDataToHex = hex => ({
+    type: ADD_DATA_TO_HEX,
     payload: hex
 })
