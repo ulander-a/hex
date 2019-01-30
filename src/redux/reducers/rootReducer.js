@@ -1,4 +1,4 @@
-import { CREATE_GRID, HIGHLIGHT_HEX } from '../constants/action-types'
+import { SET_OPTIONS, HIGHLIGHT_HEX, CREATE_GRID } from '../constants/action-types'
 
 const defaultState = {
     options: {
@@ -21,19 +21,25 @@ const defaultState = {
 }
 
 const rootReducer = (state = defaultState, action) => {
+    const { payload } = action
     switch (action.type) {
+        case SET_OPTIONS:
+            return {
+                ...state,
+                options: payload
+            }
         case CREATE_GRID:
             return {
                 ...state,
-                options: action.payload
+                grid: payload
             }
         case HIGHLIGHT_HEX:
             return {
                 ...state,
                 hex: {
                     isHighlighted: true,
-                    coordinates: {x: action.payload.x, y:action.payload.y},
-                    data: {name: 'Karmanjaka', terrain: 'Castle'}
+                    coordinates: { x: payload.x, y: payload.y },
+                    data: { name: payload.data.name, terrain: payload.data.terrain }
                 }
             }
         default:

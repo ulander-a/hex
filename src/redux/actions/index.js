@@ -1,22 +1,18 @@
 import {
-    TEST_ACTION,
-    CREATE_GRID,
+    SET_OPTIONS,
     HIGHLIGHT_HEX,
     ADD_DATA_TO_HEX,
+    CREATE_GRID,
 } from '../constants/action-types'
 
-export function test(payload) {
-    return { type: TEST_ACTION, payload }
-}
-
-// export const changeOption = options => ({
-//     type: CHANGE_OPTION,
-//     payload: options
-// })
-
-export const createGrid = options => ({
-    type: CREATE_GRID,
+export const setOptions = options => ({
+    type: SET_OPTIONS,
     payload: options
+})
+
+export const createGrid = grid => ({
+    type: CREATE_GRID,
+    payload: grid
 })
 
 export const highlightHex = hex => ({

@@ -21,22 +21,21 @@ class Canvas extends PureComponent {
 
   // }
 
-  // TODO: REFACTOR TO DECREASE REPETITION
+  // TODO: 
+  // REFACTOR TO DECREASE REPETITION
+  // REFACTOR IN GENERAL
+  // SPLIT CODE INTO HELPER FUNCTIONS SO IT BECOMES MORE READABLE AND MAINTAINABLE
   componentDidMount() {
     // Add the canvas
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
-
+    
     // TODO: Add support for different grid shapes
-    // const grid = GridFactory.rectangle({
-    //   width: width,
-    //   height: height,
-    // })
 
     this.draw(this.props.grid)
 
-    document.addEventListener('click', ({ offsetX, offsetY }) => {
+    document.getElementById('canvas-container').addEventListener('click', ({ offsetX, offsetY }) => {
       const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
       const highlightCoords = this.props.grid.get(hexCoordinates)
 
@@ -51,7 +50,7 @@ class Canvas extends PureComponent {
   componentDidUpdate() {
     this.draw(this.props.grid)
 
-    document.addEventListener('click', ({ offsetX, offsetY }) => {
+    document.getElementById('canvas-container').addEventListener('click', ({ offsetX, offsetY }) => {
       const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
       const highlightCoords = this.props.grid.get(hexCoordinates)
 
@@ -101,4 +100,10 @@ class Canvas extends PureComponent {
   }
 }
 
-export default connect()(Canvas)
+const mapStateToProps = state => {
+  return {
+    grid: state.rootReducer.grid
+  }
+}
+
+export default connect(mapStateToProps)(Canvas)

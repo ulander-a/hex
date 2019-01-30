@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createGrid } from '../../redux/actions'
+import { setOptions } from '../../redux/actions'
 
 class OptionsForm extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class OptionsForm extends Component {
   handleSubmit(e) {
     const options = this.state
     e.preventDefault()
-    this.props.dispatch(createGrid(options))
+    this.props.dispatch(setOptions(options))
   }
 
   render() {

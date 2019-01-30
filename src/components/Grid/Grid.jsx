@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Canvas } from '../index'
 import { connect } from 'react-redux'
+import { createGrid } from '../../redux/actions'
 import './Grid.css'
 
 const Honeycomb = require('honeycomb-grid')
@@ -10,17 +11,11 @@ class Grid extends PureComponent {
         super(props)
 
         this.state = {
-            // options: {
-            //     shape: 'rectangle',
-            //     width: 5,
-            //     height: 5,
-            // },
             HexFactory: Honeycomb.extendHex({
                 size: 50,
                 orientation: 'flat'
             }),
             GridFactory: {},
-            grid: []
         }
     }
 
@@ -32,8 +27,8 @@ class Grid extends PureComponent {
 
     componentDidMount() {
         const gridData = this.state.GridFactory.rectangle({
-             width: 5,
-             height: 5
+            width: this.props.options.width,
+            height: this.props.options.height
         })
 
         gridData.forEach(element => {
@@ -41,17 +36,33 @@ class Grid extends PureComponent {
                 name: 'unnamed',
                 terrain: 'plains'
             }
-        });
+        })
 
-        this.setState({...this.state, grid: gridData})
+        this.props.dispatch(createGrid(gridData))
+    }
+
+    componentDidUpdate() {
+        const gridData = this.state.GridFactory.rectangle({
+            width: this.props.options.width,
+            height: this.props.options.height
+        })
+
+        gridData.forEach(element => {
+            element.data = {
+                name: 'unnamed',
+                terrain: 'plains'
+            }
+        })
+
+        this.props.dispatch(createGrid(gridData))
     }
 
     render() {
-        const { grid, GridFactory } = this.state
+        const { GridFactory } = this.state
 
         return (
             <section>
-                <Canvas GridFactory={GridFactory} grid={grid} />
+                <Canvas GridFactory={GridFactory} />
             </section>
         )
     }
