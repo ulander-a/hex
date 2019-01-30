@@ -27,16 +27,13 @@ class Canvas extends PureComponent {
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
-
+    console.log(this.props)
+    
     // TODO: Add support for different grid shapes
-    // const grid = GridFactory.rectangle({
-    //   width: width,
-    //   height: height,
-    // })
 
     this.draw(this.props.grid)
 
-    document.addEventListener('click', ({ offsetX, offsetY }) => {
+    document.getElementById('canvas-container').addEventListener('click', ({ offsetX, offsetY }) => {
       const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
       const highlightCoords = this.props.grid.get(hexCoordinates)
 
@@ -51,7 +48,7 @@ class Canvas extends PureComponent {
   componentDidUpdate() {
     this.draw(this.props.grid)
 
-    document.addEventListener('click', ({ offsetX, offsetY }) => {
+    document.getElementById('canvas-container').addEventListener('click', ({ offsetX, offsetY }) => {
       const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
       const highlightCoords = this.props.grid.get(hexCoordinates)
 
@@ -101,4 +98,10 @@ class Canvas extends PureComponent {
   }
 }
 
-export default connect()(Canvas)
+const mapStateToProps = state => {
+  return {
+    grid: state.rootReducer.grid
+  }
+}
+
+export default connect(mapStateToProps)(Canvas)
