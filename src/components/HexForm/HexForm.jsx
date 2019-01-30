@@ -21,20 +21,13 @@ export class HexForm extends Component {
     e.preventDefault()
   }
 
-  handleChange(e) {
-    e.preventDefault()
-    const target = e.target
-    const { value, id } = target
-    const field = Object.assign(
-      {}, this.state.fields.find(field => field.id === id), { value: value }
-    )
-    
-    this.setState({
-      fields: [
-        ...this.state.fields,
-        field
-      ]
+  handleChange = idx => e => {
+    const newFields = this.state.fields.map((field, fidx) => {
+      if (idx !== fidx) return field
+      return { ...field, value: e.target.value }
     })
+
+    this.setState({fields: newFields})
   }
 
   render() {
@@ -43,10 +36,10 @@ export class HexForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         {
-          fields.map((field, i) =>
-            <div key={i}>
+          fields.map((field, idx) =>
+            <div key={idx}>
               <label htmlFor={field.id}>{field.label}</label>
-              <input id={field.id} type={field.type} value={field.value} onChange={this.handleChange} />
+              <input id={field.id} type={field.type} value={field.value} onChange={this.handleChange(idx)} />
             </div>
           )
         }
