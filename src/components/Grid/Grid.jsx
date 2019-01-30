@@ -11,11 +11,6 @@ class Grid extends PureComponent {
         super(props)
 
         this.state = {
-            // options: {
-            //     shape: 'rectangle',
-            //     width: 5,
-            //     height: 5,
-            // },
             HexFactory: Honeycomb.extendHex({
                 size: 50,
                 orientation: 'flat'
@@ -44,7 +39,22 @@ class Grid extends PureComponent {
         })
 
         this.props.dispatch(createGrid(gridData))
-        // this.setState({...this.state, grid: gridData})
+    }
+
+    componentDidUpdate() {
+        const gridData = this.state.GridFactory.rectangle({
+            width: this.props.options.width,
+            height: this.props.options.height
+        })
+
+        gridData.forEach(element => {
+            element.data = {
+                name: 'unnamed',
+                terrain: 'plains'
+            }
+        })
+
+        this.props.dispatch(createGrid(gridData))
     }
 
     render() {

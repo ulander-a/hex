@@ -21,13 +21,15 @@ class Canvas extends PureComponent {
 
   // }
 
-  // TODO: REFACTOR TO DECREASE REPETITION
+  // TODO: 
+  // REFACTOR TO DECREASE REPETITION
+  // REFACTOR IN GENERAL
+  // SPLIT CODE INTO HELPER FUNCTIONS SO IT BECOMES MORE READABLE AND MAINTAINABLE
   componentDidMount() {
     // Add the canvas
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
-    console.log(this.props)
     
     // TODO: Add support for different grid shapes
 
