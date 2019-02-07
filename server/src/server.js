@@ -5,7 +5,8 @@ const port = process.env.PORT
 const db = require('./db')
 
 // Controller imports
-const TestController = require('./controllers/TestController.js')
+const TestController = require('./controllers/TestController')
+const GridController = require('./controllers/GridController')
 
 // Routes
 app.get('/', (req, res) =>{
@@ -13,6 +14,7 @@ app.get('/', (req, res) =>{
 })
 
 app.use('/tests', TestController)
+app.use('/grids', GridController)
 
 app.listen(port, () => {
   console.log(`[Server up] Go to: http://localhost:${process.env.PORT}/`)
