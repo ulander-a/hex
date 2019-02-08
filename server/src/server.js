@@ -8,6 +8,14 @@ const db = require('./db')
 const TestController = require('./controllers/TestController')
 const GridController = require('./controllers/GridController')
 
+// Enable CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 // Routes
 app.get('/', (req, res) =>{
   res.send('Hello world!')
