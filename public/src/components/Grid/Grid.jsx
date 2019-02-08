@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Canvas } from '../index'
 import { connect } from 'react-redux'
-import { createGrid } from '../../redux/actions'
+import { getGrid, createGrid } from '../../redux/actions'
 import './Grid.css'
 
 const Honeycomb = require('honeycomb-grid')
@@ -26,22 +26,30 @@ class Grid extends PureComponent {
     }
 
     componentDidMount() {
-        const gridData = this.state.GridFactory.rectangle({
-            width: this.props.options.width,
-            height: this.props.options.height
-        })
+        // Fetch griddata from api
+        // TODO: Change it to take dynamic id's at some point
+        this.props.dispatch(getGrid('5c5bfb6cfb6fc06f4f579967'))
 
-        gridData.forEach(element => {
-            element.data = {
-                name: 'unnamed',
-                terrain: 'plains'
-            }
-        })
+        // Create grid
 
-        this.props.dispatch(createGrid(gridData))
+        // const gridData = this.state.GridFactory.rectangle({
+        //     width: this.props.options.width,
+        //     height: this.props.options.height
+        // })
+
+        // gridData.forEach(element => {
+        //     element.data = {
+        //         name: 'unnamed',
+        //         terrain: 'plains'
+        //     }
+        // })
+
+        // this.props.dispatch(createGrid(gridData))
     }
 
     componentDidUpdate() {
+        // Meant to be used when creating brand new grids,
+        // might need tweaking later
         const gridData = this.state.GridFactory.rectangle({
             width: this.props.options.width,
             height: this.props.options.height
@@ -62,7 +70,7 @@ class Grid extends PureComponent {
 
         return (
             <section>
-                <Canvas GridFactory={GridFactory} />
+                {/* <Canvas GridFactory={GridFactory} /> */}
             </section>
         )
     }

@@ -11,8 +11,6 @@ import {
     GET_GRID_FAILURE,
 } from '../constants/action-types'
 
-const API = process.env.API_URL
-
 // Client-side actions
 
 export const setOptions = options => ({
@@ -54,10 +52,11 @@ export const getGridFailure = error => ({
 export const getGrid = id => dispatch => {
     dispatch(getGridStart)
 
-    return fetch(`${API}/grids/${id}`, {
+    return fetch(`${process.env.REACT_APP_API}/grids/${id}`, {
         method: 'GET'
-    }).then(grid => getGridSuccess(grid))
-    .catch(error => getGridFailure(error))
+    }).then(res => res.json())
+    .then(data => console.log(data))
+    .catch(error => dispatch(getGridFailure(error)))
 }
 
  // SAVE grid
@@ -74,7 +73,7 @@ export const saveGridFailure = error => ({
 export const saveGrid = grid => dispatch => {
     dispatch(saveGridStart)
 
-    return fetch(`${API}/grids`, {
+    return fetch(`${process.env.REACT_APP_API}/grids`, {
         method: 'POST',
         body: grid,
     }).then(res => saveGridSuccess(res))
