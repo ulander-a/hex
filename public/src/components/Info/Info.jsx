@@ -13,7 +13,7 @@ const Info = ({ hex }) => (
     </p>
       <p>Name: <span>{hex.data.name}</span></p>
       <p>Terrain: <span>{hex.data.terrain}</span></p>
-      <HexForm />
+      <HexForm hex={hex} />
   </aside>
 )
 

@@ -19,6 +19,7 @@ export class HexForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    console.log(this.props.hex)
   }
 
   handleChange = idx => e => {
