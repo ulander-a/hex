@@ -3,22 +3,22 @@ import { SET_OPTIONS, HIGHLIGHT_HEX, CREATE_GRID, GET_GRID_START, GET_GRID_SUCCE
 const defaultState = {
     isFetching: false,
     message: '',
-    options: {
-        width: 5,
+    grid: {
+        _id: null,
         height: 5,
-        shape: 'rectangle'
+        width: 5,
+        hexes: []
     },
-    grid: [],
     hex: {
         isHighlighted: false,
         coordinates: {
             x: null,
             y: null
         },
-        data: {
-            name: 'chungus',
-            terrain: '2019 jazz'
-        }
+        // data: {
+        //     name: 'chungus',
+        //     terrain: '2019 jazz'
+        // }
     }
 }
 
@@ -41,7 +41,7 @@ const rootReducer = (state = defaultState, action) => {
                 hex: {
                     isHighlighted: true,
                     coordinates: { x: payload.x, y: payload.y },
-                    data: { name: payload.data.name, terrain: payload.data.terrain }
+                    // data: { name: payload.data.name, terrain: payload.data.terrain }
                 }
             }
         case GET_GRID_START:

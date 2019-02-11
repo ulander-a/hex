@@ -12,7 +12,10 @@ class Grid extends Component {
         this.state = {
             HexFactory: Honeycomb.extendHex({
                 size: 50,
-                orientation: 'flat'
+                orientation: 'flat',
+                data: {}
+                // name: 'unnamed',
+                // terrain: 'plains'
             }),
             GridFactory: {}
         }
@@ -22,26 +25,29 @@ class Grid extends Component {
         this.setState({
             GridFactory: Honeycomb.defineGrid(this.state.HexFactory)
         })
-
     }
 
     componentDidMount() {
         this.props.dispatch(getGrid('5c5bfb6cfb6fc06f4f579967'))
-        // console.log('wtf?', this.props.grid)
-        // const NANI = this.props.grid.hexes.map(hex => {
-        //      this.state.GridFactory(this.state.HexFactory(hex.x, hex.y))
-        // })
-        // console.log(NANI)
-        // console.log('hm???', this.state.GridFactory.Hex(this.props.grid.hexes))
-        // const created = this.stateGridFactory.Hex(this.props.grid.hexes)
-        // trigger render somehow, maybe as a promise?
     }
 
     render() {
+        // use this later to get height and width
+        const { grid } = this.props
+        const renderable = () => {
+            if (grid.hexes.length > 0) {
+                return this.state.GridFactory.rectangle({
+                    width: 5,
+                    height: 5
+                })
+
+
+            } else { return null }
+        }
 
         return (
             this.props.isFetching ? <p>Fetching...</p> :
-            <p>This is where the magic happens</p>
+                <Canvas GridFactory={this.state.GridFactory} grid={renderable()} />
         )
     }
 }

@@ -11,8 +11,8 @@ const Info = ({ hex }) => (
       ,&nbsp;
       <span>{hex.coordinates.y}</span>
     </p>
-      <p>Name: <span>{hex.data.name}</span></p>
-      <p>Terrain: <span>{hex.data.terrain}</span></p>
+      {/* <p>Name: <span>{hex.data.name}</span></p> */}
+      {/* <p>Terrain: <span>{hex.data.terrain}</span></p> */}
       <HexForm hex={hex} />
   </aside>
 )
