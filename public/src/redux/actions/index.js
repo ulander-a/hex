@@ -50,12 +50,12 @@ export const getGridFailure = error => ({
 })
 
 export const getGrid = id => dispatch => {
-    dispatch(getGridStart)
+    dispatch(getGridStart())
 
     return fetch(`${process.env.REACT_APP_API}/grids/${id}`, {
         method: 'GET'
     }).then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => dispatch(getGridSuccess(data)))
     .catch(error => dispatch(getGridFailure(error)))
 }
 
