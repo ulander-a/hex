@@ -31,10 +31,21 @@ class Canvas extends Component {
       if (highlightCoords) {
         const highlight = true
         this.draw(this.props.grid, highlightCoords, highlight)
-        console.log(highlightCoords)
-        this.props.dispatch(highlightHex(highlightCoords))
+        const h = this.getHexByCoordinates(highlightCoords)
+        this.props.dispatch(highlightHex(h))
       }
     })
+  }
+
+  // TODO: Refactor this horrible hack
+  getHexByCoordinates(coordinates) {
+    let bepis
+    this.props.gridData.hexes.forEach(hex => {
+      if (hex.x === coordinates.x && hex.y === coordinates.y) {
+        bepis = hex
+      }
+    })
+    return bepis
   }
 
   draw(grid, highlightCoords = null, highlight = false) {
@@ -75,4 +86,10 @@ class Canvas extends Component {
   }
 }
 
-export default connect()(Canvas)
+const mapStateToProps = state => {
+  return {
+    gridData: state.rootReducer.grid
+  }
+}
+
+export default connect(mapStateToProps)(Canvas)

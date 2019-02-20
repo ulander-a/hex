@@ -11,14 +11,9 @@ const defaultState = {
     },
     hex: {
         isHighlighted: false,
-        coordinates: {
-            x: null,
-            y: null
-        },
-        // data: {
-        //     name: 'chungus',
-        //     terrain: '2019 jazz'
-        // }
+        x: null,
+        y: null,
+        data: {}
     }
 }
 
@@ -40,8 +35,9 @@ const rootReducer = (state = defaultState, action) => {
                 ...state,
                 hex: {
                     isHighlighted: true,
-                    coordinates: { x: payload.x, y: payload.y },
-                    // data: { name: payload.data.name, terrain: payload.data.terrain }
+                    x: payload.x, 
+                    y: payload.y,
+                    data: { name: payload.data.name, terrain: payload.data.terrain }
                 }
             }
         case GET_GRID_START:
