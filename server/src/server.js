@@ -6,7 +6,6 @@ const port = process.env.PORT
 const db = require('./db')
 
 // Controller imports
-const TestController = require('./controllers/TestController')
 const GridController = require('./controllers/GridController')
 
 // Enable CORS
@@ -22,7 +21,6 @@ app.get('/', (req, res) =>{
   res.send('Hello world!')
 })
 
-app.use('/tests', TestController)
 app.use('/grids', GridController)
 
 app.listen(port, () => {

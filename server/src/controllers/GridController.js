@@ -26,4 +26,27 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+    Grid.create({
+        x: req.body.x,
+        y: req.body.y,
+        data: {
+            name: req.body.name,
+            terrain: req.body.terrain,
+        }
+    }, (error, grid) => {
+        if (error) {
+            return res.status(500).send(`OwO What's this? ~ ${error}`)
+        } else {
+            return res.status(200).send(grid)
+        }
+    })
+})
+
+// router.delete('/', (req, res) => {
+//     Grid.deleteOne(
+//         {id: req.body.id},
+//         ()
+//     )
+// })
 module.exports = router
