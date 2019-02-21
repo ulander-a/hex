@@ -18,11 +18,6 @@ export const setOptions = options => ({
     payload: options
 })
 
-export const createGrid = grid => ({
-    type: CREATE_GRID,
-    payload: grid
-})
-
 export const highlightHex = hex => ({
     type: HIGHLIGHT_HEX,
     payload: hex
@@ -37,6 +32,11 @@ export const addDataToHex = hex => ({
  * Server-side actions 
  */
 // CREATE grid
+
+export const createGrid = grid => ({
+    type: CREATE_GRID,
+    payload: grid
+})
 
 // GET grid
 export const getGridStart = () => ({type: GET_GRID_START}) 
