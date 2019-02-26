@@ -27,13 +27,9 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    console.log(req)
     Grid.create({
-        x: req.body.x,
-        y: req.body.y,
-        data: {
-            name: req.body.name,
-            terrain: req.body.terrain,
-        }
+        hexes: req.body.hexes
     }, (error, grid) => {
         if (error) {
             return res.status(500).send(`OwO What's this? ~ ${error}`)
