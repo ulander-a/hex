@@ -42,7 +42,7 @@ router.put('/:id', (req, res) => {
     Grid.findByIdAndUpdate(
         req.params.id,
         {hexes: req.body.hexes},
-        {new: true},
+        {new: true, useFindAndModfiy: false},
         (error, grid) => {
             if (error) {
                 return res.status(500).send(`OwO What's this? ~ ${error}`)
