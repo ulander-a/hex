@@ -27,7 +27,6 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log(req)
     Grid.create({
         hexes: req.body.hexes
     }, (error, grid) => {
@@ -37,6 +36,20 @@ router.post('/', (req, res) => {
             return res.status(200).send(grid)
         }
     })
+})
+
+router.put('/:id', (req, res) => {
+    Grid.findByIdAndUpdate(
+        req.params.id,
+        {hexes: req.body.hexes},
+        {new: true},
+        (error, grid) => {
+            if (error) {
+                return res.status(500).send(`OwO What's this? ~ ${error}`)
+            } else {
+                return res.status(200).send(grid)
+            }
+        })
 })
 
 // router.delete('/', (req, res) => {
