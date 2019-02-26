@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { getUserGrids } from '../../redux/actions';
+import { getUserGrids, getGrid } from '../../redux/actions';
 
 export class GridPicker extends PureComponent {
   constructor(props) {
@@ -8,12 +8,16 @@ export class GridPicker extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.dispatch(getUserGrids())
   }
 
+  componentDidUpdate() {
+    this.props.dispatch(getGrid(this.props.grids[0]._id))
+  }
+
   handleChange(e) {
-    return null
+    this.props.dispatch(getGrid(e.target.value))
   }
 
   render() {
@@ -21,10 +25,11 @@ export class GridPicker extends PureComponent {
 
     return (
       <div>
-        <select>
+        <p>Pick a grid!</p>
+        <select onChange={this.handleChange}>
           {
             grids.map((grid, i) => (
-              <option key={i} value={grid.id}>{grid.name}</option>
+              <option key={i} value={grid._id}>{grid.name}</option>
             ))
           }
         </select>

@@ -27,9 +27,9 @@ class Grid extends Component {
         })
     }
 
-    componentDidMount() {
-        this.props.dispatch(getGrid('5c5bfb6cfb6fc06f4f579967'))
-    }
+    // componentDidMount() {
+    //     this.props.dispatch(getGrid('5c5bfb6cfb6fc06f4f579967'))
+    // }
 
     render() {
         // use this later to get height and width
@@ -40,8 +40,6 @@ class Grid extends Component {
                     width: 5,
                     height: 5
                 })
-
-
             } else { return null }
         }
 

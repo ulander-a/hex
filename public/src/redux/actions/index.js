@@ -59,7 +59,7 @@ export const getUserGrids = () => dispatch => {
         method: 'GET'
     }).then(res => res.json())
     .then(data => dispatch(getUserGridsSuccess(data)))
-    .then(error => dispatch(getUserGridsFailure(error)))
+    .catch(error => dispatch(getUserGridsFailure(error)))
 }
 
 // GET grid
