@@ -1,8 +1,9 @@
-import { SET_OPTIONS, HIGHLIGHT_HEX, CREATE_GRID, GET_GRID_START, GET_GRID_SUCCESS, GET_GRID_FAILURE } from '../constants/action-types'
+import { SET_OPTIONS, HIGHLIGHT_HEX, CREATE_GRID, GET_GRID_START, GET_GRID_SUCCESS, GET_GRID_FAILURE, GET_USER_GRIDS_START, GET_USER_GRIDS_SUCCESS, GET_USER_GRIDS_FAILURE } from '../constants/action-types'
 
 const defaultState = {
     isFetching: false,
     message: '',
+    userGrids: [],
     grid: {
         _id: null,
         height: 5,
@@ -39,6 +40,24 @@ const rootReducer = (state = defaultState, action) => {
                     y: payload.y,
                     data: { name: payload.data.name, terrain: payload.data.terrain }
                 }
+            }
+        case GET_USER_GRIDS_START:
+            return {
+                ...state,
+                isFetching: true
+            }
+        case GET_USER_GRIDS_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                userGrids: payload,
+                message: 'Das it mane'
+            }
+        case GET_USER_GRIDS_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                message: payload
             }
         case GET_GRID_START:
             return {
