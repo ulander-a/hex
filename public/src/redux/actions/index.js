@@ -9,6 +9,9 @@ import {
     GET_GRID_START,
     GET_GRID_SUCCESS,
     GET_GRID_FAILURE,
+    GET_USER_GRIDS_START,
+    GET_USER_GRIDS_SUCCESS,
+    GET_USER_GRIDS_FAILURE,
 } from '../constants/action-types'
 
 // Client-side actions
@@ -37,6 +40,27 @@ export const createGrid = grid => ({
     type: CREATE_GRID,
     payload: grid
 })
+
+// GET users saved grids
+export const getUserGridsStart = () => ({type: GET_USER_GRIDS_START})
+export const getUserGridsSuccess = grid => ({
+    type: GET_USER_GRIDS_SUCCESS,
+    payload: grid
+})
+export const getUserGridsFailure = error => ({
+    type: GET_USER_GRIDS_FAILURE,
+    payload: error
+})
+
+export const getUserGrids = () => dispatch => {
+    dispatch(getUserGridsStart())
+
+    return fetch(`${process.env.REACT_APP_API}/grids`, {
+        method: 'GET'
+    }).then(res => res.json())
+    .then(data => dispatch(getUserGridsSuccess(data)))
+    .then(error => dispatch(getUserGridsFailure(error)))
+}
 
 // GET grid
 export const getGridStart = () => ({type: GET_GRID_START}) 
