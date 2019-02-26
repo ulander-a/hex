@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { getUserGrids } from '../../redux/actions';
 
 export class GridPicker extends PureComponent {
   constructor(props) {
@@ -6,8 +8,8 @@ export class GridPicker extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  componentWillMount() {
-
+  componentDidMount() {
+    this.props.dispatch(getUserGrids())
   }
 
   handleChange(e) {
@@ -31,4 +33,10 @@ export class GridPicker extends PureComponent {
   }
 }
 
-export default GridPicker
+const mapStateToProps = state => {
+  return {
+    grids: state.rootReducer.userGrids
+  }
+}
+
+export default connect(mapStateToProps)(GridPicker)
