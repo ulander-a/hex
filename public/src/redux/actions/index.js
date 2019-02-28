@@ -12,6 +12,9 @@ import {
     GET_USER_GRIDS_START,
     GET_USER_GRIDS_SUCCESS,
     GET_USER_GRIDS_FAILURE,
+    CREATE_GRID_START,
+    CREATE_GRID_SUCCESS,
+    CREATE_GRID_FAILURE,
 } from '../constants/action-types'
 
 // Client-side actions
@@ -35,11 +38,25 @@ export const addDataToHex = hex => ({
  * Server-side actions 
  */
 // CREATE grid
-
-export const createGrid = grid => ({
-    type: CREATE_GRID,
-    payload: grid
+export const createGridStart = () => ({type: CREATE_GRID_START})
+export const createGridSuccess = msg => ({
+    type: CREATE_GRID_SUCCESS,
+    // payload: msg
 })
+export const createGridFailure = error => ({
+    type: CREATE_GRID_FAILURE,
+    payload: error
+})
+
+export const createGrid = () => dispatch => {
+    dispatch(createGridStart())
+
+    return fetch(`${process.env.REACT_APP_API}/grids`, {
+        method: 'POST'
+    }).then(res => res.json())
+    .then(data => dispatch(dispatch(createGridSuccess(data))))
+    .catch(error => dispatch(createGridFailure(error)))
+}
 
 // GET users saved grids
 export const getUserGridsStart = () => ({type: GET_USER_GRIDS_START})
