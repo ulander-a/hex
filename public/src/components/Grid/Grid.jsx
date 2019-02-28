@@ -32,13 +32,12 @@ class Grid extends Component {
     // }
 
     render() {
-        // use this later to get height and width
         const { grid } = this.props
         const renderable = () => {
             if (grid.hexes.length > 0) {
                 return this.state.GridFactory.rectangle({
-                    width: 5,
-                    height: 5
+                    width: grid.meta.width,
+                    height: grid.meta.height
                 })
             } else { return null }
         }

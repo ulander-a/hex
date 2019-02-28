@@ -29,7 +29,7 @@ export class GridPicker extends PureComponent {
         <select onChange={this.handleChange}>
           {
             grids.map((grid, i) => (
-              <option key={i} value={grid._id}>{grid.name}</option>
+              <option key={i} value={grid._id}>{grid.meta.name}</option>
             ))
           }
         </select>
