@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Canvas } from '../index'
 import { connect } from 'react-redux'
-import { getGrid } from '../../redux/actions'
 import './Grid.css'
 const Honeycomb = require('honeycomb-grid')
 
@@ -26,10 +25,6 @@ class Grid extends Component {
             GridFactory: Honeycomb.defineGrid(this.state.HexFactory)
         })
     }
-
-    // componentDidMount() {
-    //     this.props.dispatch(getGrid('5c5bfb6cfb6fc06f4f579967'))
-    // }
 
     render() {
         const { grid } = this.props

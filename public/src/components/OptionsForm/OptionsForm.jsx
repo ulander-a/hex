@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setOptions } from '../../redux/actions'
+import { createGrid } from '../../redux/actions'
 
 class OptionsForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      name: 'nameless',
       width: this.props.width,
       height: this.props.height,
       shape: 'rectangle',
@@ -24,18 +25,24 @@ class OptionsForm extends Component {
       [id]: value
     })
 
-    // HMM...
   }
 
   handleSubmit(e) {
-    const options = this.state
     e.preventDefault()
-    this.props.dispatch(setOptions(options))
+    const { options } = this.state
+    this.props.dispatch(createGrid(options))
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <label htmlFor="name">Name:</label>
+        <input
+          id="name"
+          type="text"
+          value={this.state.name}
+          onChange={this.handleChange}
+        ></input>
         <label htmlFor="width">Width:</label>
         <input
           id="width"

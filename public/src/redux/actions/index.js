@@ -1,6 +1,4 @@
 import {
-    SET_OPTIONS,
-    CREATE_GRID,
     HIGHLIGHT_HEX,
     ADD_DATA_TO_HEX,
     SAVE_GRID_START,
@@ -18,11 +16,6 @@ import {
 } from '../constants/action-types'
 
 // Client-side actions
-
-export const setOptions = options => ({
-    type: SET_OPTIONS,
-    payload: options
-})
 
 export const highlightHex = hex => ({
     type: HIGHLIGHT_HEX,
@@ -48,11 +41,12 @@ export const createGridFailure = error => ({
     payload: error
 })
 
-export const createGrid = () => dispatch => {
+export const createGrid = options => dispatch => {
     dispatch(createGridStart())
 
     return fetch(`${process.env.REACT_APP_API}/grids`, {
-        method: 'POST'
+        method: 'POST',
+        body: options
     }).then(res => res.json())
     .then(data => dispatch(dispatch(createGridSuccess(data))))
     .catch(error => dispatch(createGridFailure(error)))
