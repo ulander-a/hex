@@ -1,10 +1,9 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import * as PIXI from 'pixi.js'
-import { highlightHex } from '../../redux/actions';
+import { connect } from 'react-redux'
+import { highlightHex } from '../../redux/actions'
 
-class Canvas extends PureComponent {
+class Canvas extends Component {
   constructor(props) {
     super(props)
 
@@ -17,23 +16,13 @@ class Canvas extends PureComponent {
     }
   }
 
-  // static propTypes = {
-
-  // }
-
-  // TODO: 
-  // REFACTOR TO DECREASE REPETITION
-  // REFACTOR IN GENERAL
-  // SPLIT CODE INTO HELPER FUNCTIONS SO IT BECOMES MORE READABLE AND MAINTAINABLE
   componentDidMount() {
-    // Add the canvas
     document.getElementById('canvas-container').appendChild(
       this.state.app.view
     )
-    
-    // TODO: Add support for different grid shapes
-
-    this.draw(this.props.grid)
+    if (this.props.grid !== null) {
+      this.draw(this.props.grid)
+    }
 
     document.getElementById('canvas-container').addEventListener('click', ({ offsetX, offsetY }) => {
       const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
@@ -42,23 +31,21 @@ class Canvas extends PureComponent {
       if (highlightCoords) {
         const highlight = true
         this.draw(this.props.grid, highlightCoords, highlight)
-        this.props.dispatch(highlightHex(highlightCoords))
+        const h = this.getHexByCoordinates(highlightCoords)
+        this.props.dispatch(highlightHex(h))
       }
     })
   }
 
-  componentDidUpdate() {
-    this.draw(this.props.grid)
-
-    document.getElementById('canvas-container').addEventListener('click', ({ offsetX, offsetY }) => {
-      const hexCoordinates = this.props.GridFactory.pointToHex([offsetX, offsetY])
-      const highlightCoords = this.props.grid.get(hexCoordinates)
-
-      if (highlightCoords) {
-        const highlight = true
-        this.draw(this.props.grid, highlightCoords, highlight)
+  // TODO: Refactor this horrible hack
+  getHexByCoordinates(coordinates) {
+    let bepis
+    this.props.gridData.hexes.forEach(hex => {
+      if (hex.x === coordinates.x && hex.y === coordinates.y) {
+        bepis = hex
       }
     })
+    return bepis
   }
 
   draw(grid, highlightCoords = null, highlight = false) {
@@ -73,7 +60,6 @@ class Canvas extends PureComponent {
           this.state.graphics.endFill()
         }
       }
-
       const point = hex.toPoint()
       // add the hex's position to each of its corner points
       const corners = hex.corners().map(corner => corner.add(point))
@@ -102,7 +88,7 @@ class Canvas extends PureComponent {
 
 const mapStateToProps = state => {
   return {
-    grid: state.rootReducer.grid
+    gridData: state.rootReducer.grid
   }
 }
 

@@ -7,9 +7,9 @@ const Info = ({ hex }) => (
     <h2>Info:</h2>
     <p>
       Selected hex:&nbsp;
-      <span>{hex.coordinates.x}</span>
+      <span>{hex.x}</span>
       ,&nbsp;
-      <span>{hex.coordinates.y}</span>
+      <span>{hex.y}</span>
     </p>
       <p>Name: <span>{hex.data.name}</span></p>
       <p>Terrain: <span>{hex.data.terrain}</span></p>

@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
 const GridSchema = new mongoose.Schema({
+    meta: {
+        name: String,
+        width: Number,
+        height: Number
+    },
     hexes: [{
         x: Number,
         y: Number,

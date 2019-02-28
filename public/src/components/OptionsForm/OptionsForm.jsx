@@ -7,8 +7,8 @@ class OptionsForm extends Component {
     super(props)
 
     this.state = {
-      width: this.props.options.width,
-      height: this.props.options.height,
+      width: this.props.width,
+      height: this.props.height,
       shape: 'rectangle',
     }
 
@@ -65,7 +65,8 @@ class OptionsForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    options: state.rootReducer.options
+    width: state.rootReducer.grid.width,
+    height: state.rootReducer.grid.height
   }
 }
 

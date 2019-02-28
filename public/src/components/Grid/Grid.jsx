@@ -1,21 +1,23 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { Canvas } from '../index'
 import { connect } from 'react-redux'
-import { getGrid, createGrid } from '../../redux/actions'
+import { getGrid } from '../../redux/actions'
 import './Grid.css'
-
 const Honeycomb = require('honeycomb-grid')
 
-class Grid extends PureComponent {
+class Grid extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             HexFactory: Honeycomb.extendHex({
                 size: 50,
-                orientation: 'flat'
+                orientation: 'flat',
+                data: {}
+                // name: 'unnamed',
+                // terrain: 'plains'
             }),
-            GridFactory: {},
+            GridFactory: {}
         }
     }
 
@@ -25,60 +27,32 @@ class Grid extends PureComponent {
         })
     }
 
-    componentDidMount() {
-        // Fetch griddata from api
-        // TODO: Change it to take dynamic id's at some point
-        this.props.dispatch(getGrid('5c5bfb6cfb6fc06f4f579967'))
-
-        // Create grid
-
-        // const gridData = this.state.GridFactory.rectangle({
-        //     width: this.props.options.width,
-        //     height: this.props.options.height
-        // })
-
-        // gridData.forEach(element => {
-        //     element.data = {
-        //         name: 'unnamed',
-        //         terrain: 'plains'
-        //     }
-        // })
-
-        // this.props.dispatch(createGrid(gridData))
-    }
-
-    componentDidUpdate() {
-        // Meant to be used when creating brand new grids,
-        // might need tweaking later
-        const gridData = this.state.GridFactory.rectangle({
-            width: this.props.options.width,
-            height: this.props.options.height
-        })
-
-        gridData.forEach(element => {
-            element.data = {
-                name: 'unnamed',
-                terrain: 'plains'
-            }
-        })
-
-        this.props.dispatch(createGrid(gridData))
-    }
+    // componentDidMount() {
+    //     this.props.dispatch(getGrid('5c5bfb6cfb6fc06f4f579967'))
+    // }
 
     render() {
-        const { GridFactory } = this.state
+        const { grid } = this.props
+        const renderable = () => {
+            if (grid.hexes.length > 0) {
+                return this.state.GridFactory.rectangle({
+                    width: grid.meta.width,
+                    height: grid.meta.height
+                })
+            } else { return null }
+        }
 
         return (
-            <section>
-                {/* <Canvas GridFactory={GridFactory} /> */}
-            </section>
+            this.props.isFetching ? <p>Fetching...</p> :
+                <Canvas GridFactory={this.state.GridFactory} grid={renderable()} />
         )
     }
 }
 
 const mapStateToProps = state => {
     return {
-        options: state.rootReducer.options
+        grid: state.rootReducer.grid,
+        isFetching: state.rootReducer.isFetching
     }
 }
 

@@ -26,4 +26,40 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+    Grid.create({
+        meta: req.body.meta,
+        hexes: req.body.hexes
+    }, (error, grid) => {
+        if (error) {
+            return res.status(500).send(`OwO What's this? ~ ${error}`)
+        } else {
+            return res.status(200).send(grid)
+        }
+    })
+})
+
+router.put('/:id', (req, res) => {
+    Grid.findByIdAndUpdate(
+        req.params.id,
+        {
+            meta: req.body.meta,
+            hexes: req.body.hexes
+        },
+        { new: true, useFindAndModfiy: false },
+        (error, grid) => {
+            if (error) {
+                return res.status(500).send(`OwO What's this? ~ ${error}`)
+            } else {
+                return res.status(200).send(grid)
+            }
+        })
+})
+
+// router.delete('/', (req, res) => {
+//     Grid.deleteOne(
+//         {id: req.body.id},
+//         ()
+//     )
+// })
 module.exports = router
