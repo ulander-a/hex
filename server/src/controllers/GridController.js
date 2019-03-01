@@ -27,7 +27,6 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-
     Grid.create({
         meta: req.body.meta,
         hexes: req.body.hexes

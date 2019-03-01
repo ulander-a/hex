@@ -45,10 +45,12 @@ export const createGrid = grid => dispatch => {
     dispatch(createGridStart())
     return fetch(`${process.env.REACT_APP_API}/grids`, {
         method: 'POST',
-        'headers': {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        'headers': { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(grid)
     }).then(res => res.json())
-        .then(data => dispatch(dispatch(createGridSuccess(data))))
+        .then(data => {
+            dispatch(getUserGrids())
+        })
         .catch(error => dispatch(createGridFailure(error)))
 }
 

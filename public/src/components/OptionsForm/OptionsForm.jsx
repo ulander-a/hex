@@ -41,6 +41,13 @@ class OptionsForm extends Component {
       hexes: this.state.GridFactory.rectangle({
         width: form.width,
         height: form.height
+      }).map(hex => hex = {
+        x: hex.x,
+        y: hex.y,
+        data: {
+          name: 'new hex',
+          terrain: 'empty'
+        }
       }),
       meta: {
         name: form.name,
@@ -57,7 +64,10 @@ class OptionsForm extends Component {
     const { value, id } = target
 
     this.setState({
-      form: { [id]: value }
+      form: {
+        ...this.state.form,
+        [id]: value
+      }
     })
 
   }
