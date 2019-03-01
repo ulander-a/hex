@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
-// IMPORT ACTIONS HERE
+import { connect } from 'react-redux'
+import {updateHex} from '../../redux/actions'
 
 export class HexForm extends Component {
   constructor(props) {
@@ -19,7 +19,16 @@ export class HexForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.props.hex)
+    const hex = {
+      x: this.props.hex.x,
+      y: this.props.hex.y,
+      data: {
+        name: this.state.fields.find(el => el.id === 'name').value,
+        terrain: this.state.fields.find(el => el.id === 'terrain').value
+      }
+    }
+    console.log(hex)
+    // updateHex()
   }
 
   handleChange = idx => e => {
@@ -50,4 +59,11 @@ export class HexForm extends Component {
   }
 }
 
-export default HexForm
+const mapStateToProps = state => {
+  return {
+    hex: state.rootReducer.hex,
+    grid: state.rootReducer.grid
+  }
+}
+
+export default connect(mapStateToProps)(HexForm)

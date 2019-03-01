@@ -13,6 +13,7 @@ import {
     CREATE_GRID_START,
     CREATE_GRID_SUCCESS,
     CREATE_GRID_FAILURE,
+    UPDATE_HEX,
 } from '../constants/action-types'
 
 // Client-side actions
@@ -26,6 +27,10 @@ export const addDataToHex = hex => ({
     type: ADD_DATA_TO_HEX,
     payload: hex
 })
+
+export const updateHex = (hex, grid) => {
+    console.log(hex, grid)
+}
 
 /**
  * Server-side actions 
