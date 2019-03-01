@@ -41,12 +41,12 @@ export const createGridFailure = error => ({
     payload: error
 })
 
-export const createGrid = options => dispatch => {
+export const createGrid = grid => dispatch => {
     dispatch(createGridStart())
     return fetch(`${process.env.REACT_APP_API}/grids`, {
         method: 'POST',
         'headers': {'Accept': 'application/json', 'Content-Type': 'application/json'},
-        body: JSON.stringify(options)
+        body: JSON.stringify(grid)
     }).then(res => res.json())
         .then(data => dispatch(dispatch(createGridSuccess(data))))
         .catch(error => dispatch(createGridFailure(error)))
@@ -65,7 +65,6 @@ export const getUserGridsFailure = error => ({
 
 export const getUserGrids = () => dispatch => {
     dispatch(getUserGridsStart())
-
     return fetch(`${process.env.REACT_APP_API}/grids`, {
         method: 'GET'
     }).then(res => res.json())
@@ -86,7 +85,6 @@ export const getGridFailure = error => ({
 
 export const getGrid = id => dispatch => {
     dispatch(getGridStart())
-
     return fetch(`${process.env.REACT_APP_API}/grids/${id}`, {
         method: 'GET'
     }).then(res => res.json())
@@ -107,7 +105,6 @@ export const saveGridFailure = error => ({
 
 export const saveGrid = grid => dispatch => {
     dispatch(saveGridStart)
-
     return fetch(`${process.env.REACT_APP_API}/grids`, {
         method: 'PUT',
         body: grid,

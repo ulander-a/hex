@@ -1,20 +1,55 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createGrid } from '../../redux/actions'
+const Honeycomb = require('honeycomb-grid')
 
 class OptionsForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      name: 'nameless',
-      width: this.props.width,
-      height: this.props.height,
-      shape: 'rectangle',
+      HexFactory: Honeycomb.extendHex({
+        size: 50,
+        orientation: 'flat',
+        data: {}
+        // name: 'unnamed',
+        // terrain: 'plains'
+      }),
+      GridFactory: {},
+      form: {
+        name: 'nameless',
+        width: 5,
+        height: 5,
+        shape: 'rectangle',
+      }
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentWillMount() {
+    this.setState({
+      GridFactory: Honeycomb.defineGrid(this.state.HexFactory)
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    const { form } = this.state
+    const grid = {
+      hexes: this.state.GridFactory.rectangle({
+        width: form.width,
+        height: form.height
+      }),
+      meta: {
+        name: form.name,
+        width: form.width,
+        height: form.height
+      }
+    }
+
+    this.props.dispatch(createGrid(grid))
   }
 
   handleChange(e) {
@@ -22,14 +57,9 @@ class OptionsForm extends Component {
     const { value, id } = target
 
     this.setState({
-      [id]: value
+      form: { [id]: value }
     })
 
-  }
-
-  handleSubmit(e) {
-    e.preventDefault()
-    this.props.dispatch(createGrid(this.state))
   }
 
   render() {
@@ -39,21 +69,21 @@ class OptionsForm extends Component {
         <input
           id="name"
           type="text"
-          value={this.state.name}
+          value={this.state.form.name}
           onChange={this.handleChange}
         ></input>
         <label htmlFor="width">Width:</label>
         <input
           id="width"
           type="number"
-          value={this.state.width}
+          value={this.state.form.width}
           onChange={this.handleChange}
         ></input>
         <label htmlFor="height">Height:</label>
         <input
           id="height"
           type="number"
-          value={this.state.height}
+          value={this.state.form.height}
           onChange={this.handleChange}
         ></input>
         <label htmlFor="shape">Shape:</label>
@@ -71,8 +101,8 @@ class OptionsForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    width: state.rootReducer.grid.width,
-    height: state.rootReducer.grid.height
+    // width: state.rootReducer.grid.width,
+    // height: state.rootReducer.grid.height
   }
 }
 
