@@ -31,10 +31,10 @@ export const addDataToHex = hex => ({
  * Server-side actions 
  */
 // CREATE grid
-export const createGridStart = () => ({type: CREATE_GRID_START})
+export const createGridStart = () => ({ type: CREATE_GRID_START })
 export const createGridSuccess = msg => ({
     type: CREATE_GRID_SUCCESS,
-    // payload: msg
+    payload: 'Das it mane'
 })
 export const createGridFailure = error => ({
     type: CREATE_GRID_FAILURE,
@@ -43,17 +43,17 @@ export const createGridFailure = error => ({
 
 export const createGrid = options => dispatch => {
     dispatch(createGridStart())
-
     return fetch(`${process.env.REACT_APP_API}/grids`, {
         method: 'POST',
-        body: options
+        'headers': {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        body: JSON.stringify(options)
     }).then(res => res.json())
-    .then(data => dispatch(dispatch(createGridSuccess(data))))
-    .catch(error => dispatch(createGridFailure(error)))
+        .then(data => dispatch(dispatch(createGridSuccess(data))))
+        .catch(error => dispatch(createGridFailure(error)))
 }
 
 // GET users saved grids
-export const getUserGridsStart = () => ({type: GET_USER_GRIDS_START})
+export const getUserGridsStart = () => ({ type: GET_USER_GRIDS_START })
 export const getUserGridsSuccess = grid => ({
     type: GET_USER_GRIDS_SUCCESS,
     payload: grid
@@ -69,12 +69,12 @@ export const getUserGrids = () => dispatch => {
     return fetch(`${process.env.REACT_APP_API}/grids`, {
         method: 'GET'
     }).then(res => res.json())
-    .then(data => dispatch(getUserGridsSuccess(data)))
-    .catch(error => dispatch(getUserGridsFailure(error)))
+        .then(data => dispatch(getUserGridsSuccess(data)))
+        .catch(error => dispatch(getUserGridsFailure(error)))
 }
 
 // GET grid
-export const getGridStart = () => ({type: GET_GRID_START}) 
+export const getGridStart = () => ({ type: GET_GRID_START })
 export const getGridSuccess = grid => ({
     type: GET_GRID_SUCCESS,
     payload: grid
@@ -90,12 +90,12 @@ export const getGrid = id => dispatch => {
     return fetch(`${process.env.REACT_APP_API}/grids/${id}`, {
         method: 'GET'
     }).then(res => res.json())
-    .then(data => dispatch(getGridSuccess(data)))
-    .catch(error => dispatch(getGridFailure(error)))
+        .then(data => dispatch(getGridSuccess(data)))
+        .catch(error => dispatch(getGridFailure(error)))
 }
 
- // SAVE grid
-export const saveGridStart = () => ({type: SAVE_GRID_START})
+// SAVE grid
+export const saveGridStart = () => ({ type: SAVE_GRID_START })
 export const saveGridSuccess = res => ({
     type: SAVE_GRID_SUCCESS,
     payload: res
@@ -109,8 +109,8 @@ export const saveGrid = grid => dispatch => {
     dispatch(saveGridStart)
 
     return fetch(`${process.env.REACT_APP_API}/grids`, {
-        method: 'POST',
+        method: 'PUT',
         body: grid,
     }).then(res => saveGridSuccess(res))
-    .catch(error => saveGridFailure(error))
+        .catch(error => saveGridFailure(error))
 }

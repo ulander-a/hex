@@ -29,8 +29,7 @@ class OptionsForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { options } = this.state
-    this.props.dispatch(createGrid(options))
+    this.props.dispatch(createGrid(this.state))
   }
 
   render() {
