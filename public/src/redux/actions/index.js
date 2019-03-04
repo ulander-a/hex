@@ -28,8 +28,25 @@ export const addDataToHex = hex => ({
     payload: hex
 })
 
-export const updateHex = (hex, grid) => {
-    console.log(hex, grid)
+export const updateHex = (hex, grid) => dispatch => {
+    const updatedGrid = {
+        ...grid,
+        hexes: grid.hexes.map(h => {
+            if (h.x === hex.x && h.y === hex.y) {
+                return hex
+            } else { return h }
+        })
+    }
+
+    const payload = {
+        grid: updatedGrid,
+        hex: hex
+    }
+
+    dispatch({
+        type: UPDATE_HEX,
+        payload: payload
+    })
 }
 
 /**
