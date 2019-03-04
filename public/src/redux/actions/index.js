@@ -13,6 +13,7 @@ import {
     CREATE_GRID_START,
     CREATE_GRID_SUCCESS,
     CREATE_GRID_FAILURE,
+    UPDATE_HEX,
 } from '../constants/action-types'
 
 // Client-side actions
@@ -26,6 +27,27 @@ export const addDataToHex = hex => ({
     type: ADD_DATA_TO_HEX,
     payload: hex
 })
+
+export const updateHex = (hex, grid) => dispatch => {
+    const updatedGrid = {
+        ...grid,
+        hexes: grid.hexes.map(h => {
+            if (h.x === hex.x && h.y === hex.y) {
+                return hex
+            } else { return h }
+        })
+    }
+
+    const payload = {
+        grid: updatedGrid,
+        hex: hex
+    }
+
+    dispatch({
+        type: UPDATE_HEX,
+        payload: payload
+    })
+}
 
 /**
  * Server-side actions 
@@ -48,7 +70,8 @@ export const createGrid = grid => dispatch => {
         'headers': { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(grid)
     }).then(res => res.json())
-        .then(data => {
+        .then(() => {
+            // TODO: Automatically get the new grid
             dispatch(getUserGrids())
         })
         .catch(error => dispatch(createGridFailure(error)))
@@ -106,10 +129,11 @@ export const saveGridFailure = error => ({
 })
 
 export const saveGrid = grid => dispatch => {
-    dispatch(saveGridStart)
-    return fetch(`${process.env.REACT_APP_API}/grids`, {
+    dispatch(saveGridStart())
+    return fetch(`${process.env.REACT_APP_API}/grids/${grid._id}`, {
         method: 'PUT',
-        body: grid,
-    }).then(res => saveGridSuccess(res))
-        .catch(error => saveGridFailure(error))
+        'headers': { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(grid),
+    }).then(res => dispatch(saveGridSuccess(res)))
+        .catch(error => dispatch(saveGridFailure(error)))
 }

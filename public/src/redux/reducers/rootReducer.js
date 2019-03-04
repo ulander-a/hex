@@ -1,7 +1,8 @@
 import {
-    HIGHLIGHT_HEX, GET_GRID_START,
+    HIGHLIGHT_HEX, UPDATE_HEX, GET_GRID_START,
     GET_GRID_SUCCESS, GET_GRID_FAILURE, GET_USER_GRIDS_START,
-    GET_USER_GRIDS_SUCCESS, GET_USER_GRIDS_FAILURE, CREATE_GRID_START, CREATE_GRID_SUCCESS, CREATE_GRID_FAILURE
+    GET_USER_GRIDS_SUCCESS, GET_USER_GRIDS_FAILURE, CREATE_GRID_START, 
+    CREATE_GRID_SUCCESS, CREATE_GRID_FAILURE
 } from '../constants/action-types'
 
 const defaultState = {
@@ -34,6 +35,12 @@ const rootReducer = (state = defaultState, action) => {
                     y: payload.y,
                     data: { name: payload.data.name, terrain: payload.data.terrain }
                 }
+            }
+        case UPDATE_HEX: 
+            return {
+                ...state,
+                grid: payload.grid,
+                hex: payload.hex
             }
         case CREATE_GRID_START:
             return {

@@ -46,7 +46,7 @@ router.put('/:id', (req, res) => {
             meta: req.body.meta,
             hexes: req.body.hexes
         },
-        { new: true, useFindAndModfiy: false },
+        { new: true },
         (error, grid) => {
             if (error) {
                 return res.status(500).send(`OwO What's this? ~ ${error}`)

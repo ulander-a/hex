@@ -10,3 +10,5 @@ mongoose.connect(
             console.log(chalk.green('Connection to MLAB was successful'))
         }
     })
+
+mongoose.set('useFindAndModify', false)
