@@ -15,8 +15,10 @@ class MainMenu extends PureComponent {
     }
     
     render() {
+      const {grid} = this.props
     return (
       <div>
+        <h1>{ grid.meta.name }</h1>
         <button onClick={this.saveGrid}>Save the grid!</button>     
       </div>
     )

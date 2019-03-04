@@ -11,9 +11,12 @@ const defaultState = {
     userGrids: [],
     grid: {
         _id: null,
-        height: 5,
-        width: 5,
-        hexes: []
+        hexes: [],
+        meta: {
+            height: 5,
+            width: 5,
+            name: ''
+        }
     },
     hex: {
         isHighlighted: false,

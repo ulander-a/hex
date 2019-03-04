@@ -25,7 +25,7 @@ export class GridPicker extends PureComponent {
 
     return (
       <div>
-        <p>Pick a grid!</p>
+        <span>Pick a grid!</span>
         <select onChange={this.handleChange}>
           {
             grids.map((grid, i) => (
