@@ -39,6 +39,9 @@ export class HexForm extends Component {
     this.setState({ fields: newFields })
   }
 
+  // componentDidUpdate()
+  // calculate fields and populate them according to grid n stuff
+
   render() {
     const { fields } = this.state
 
@@ -60,7 +63,6 @@ export class HexForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    hex: state.rootReducer.hex,
     grid: state.rootReducer.grid
   }
 }
