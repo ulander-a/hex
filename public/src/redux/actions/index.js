@@ -129,10 +129,11 @@ export const saveGridFailure = error => ({
 })
 
 export const saveGrid = grid => dispatch => {
-    dispatch(saveGridStart)
-    return fetch(`${process.env.REACT_APP_API}/grids`, {
+    dispatch(saveGridStart())
+    return fetch(`${process.env.REACT_APP_API}/grids/${grid._id}`, {
         method: 'PUT',
+        'headers': { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(grid),
-    }).then(res => saveGridSuccess(res))
-        .catch(error => saveGridFailure(error))
+    }).then(res => dispatch(saveGridSuccess(res)))
+        .catch(error => dispatch(saveGridFailure(error)))
 }

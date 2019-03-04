@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const chalk = require('chalk')
+const cors = require('cors')
+
 if (!process.env.PORT) { require('dotenv').config() }
 const port = process.env.PORT
 const db = require('./db')
@@ -9,11 +11,7 @@ const db = require('./db')
 const GridController = require('./controllers/GridController')
 
 // Enable CORS
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors());
 
 
 // Routes
