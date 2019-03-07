@@ -22,7 +22,10 @@ const defaultState = {
         isHighlighted: false,
         x: null,
         y: null,
-        data: {}
+        data: {
+            name: '',
+            terrain: ''
+        }
     }
 }
 
