@@ -8,14 +8,13 @@ export class HexForm extends Component {
 
     this.state = {
       fields: [
-        // { element: 'input', id: 'name', type: 'text', label: 'Name', value: 'unnamed' },
-        // { element: 'input', id: 'terrain', type: 'text', label: 'Terrain', value: 'plains' },
+        { element: 'input', id: 'name', type: 'text', label: 'name', value: 'unnamed' },
+        { element: 'input', id: 'terrain', type: 'text', label: 'terrain', value: 'plains' },
       ]
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    // this.getDerivedStateFromProps = this.getDerivedStateFromProps.bind(this)
   }
 
   handleSubmit(e) {
@@ -40,18 +39,28 @@ export class HexForm extends Component {
     this.setState({ fields: newFields })
   }
 
-  render() {
+  componentWillUpdate() {
     const fields = Object.entries(this.props.hex.data).map(entry => {
-      console.log(entry)
-
       const field = {
+        element: 'input',
         id: entry[0],
         type: 'text',
-        value: entry[1]
+        label: entry[0],
+        value: entry[1],
       }
 
       return field
     })
+
+
+    if (fields !== this.state.fields) {
+      console.log(fields, this.state.fields)
+      this.setState({ fields: fields })
+    }
+  }
+
+  render() {
+    const { fields } = this.state
 
     return (
       <form onSubmit={this.handleSubmit}>
