@@ -40,22 +40,19 @@ export class HexForm extends Component {
     this.setState({ fields: newFields })
   }
 
-  static getDerivedStateFromProps(props) {
-    const fields = Object.keys(props.hex.data).map((key, i) => {
-      const field = {
-        element: 'input',
-        id: key,
-        type: 'text',
-        label: key,
-        value: Object.values(props.hex.data)[i]
-      }
-      return field
-    }) 
-    return fields
-  }
-
   render() {
-    const { fields } = this.state
+    const fields = Object.entries(this.props.hex.data).map(entry => {
+      console.log(entry)
+
+      const field = {
+        id: entry[0],
+        type: 'text',
+        value: entry[1]
+      }
+
+      return field
+    })
+
     return (
       <form onSubmit={this.handleSubmit}>
         {
@@ -74,7 +71,8 @@ export class HexForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    grid: state.rootReducer.grid
+    grid: state.rootReducer.grid,
+    hex: state.rootReducer.hex
   }
 }
 
