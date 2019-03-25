@@ -39,8 +39,8 @@ export class HexForm extends Component {
     this.setState({ fields: newFields })
   }
 
-  componentWillUpdate() {
-    const fields = Object.entries(this.props.hex.data).map(entry => {
+  static getDerivedStateFromProps(props, state) {
+    const fields = Object.entries(props.hex.data).map(entry => {
       const field = {
         element: 'input',
         id: entry[0],
@@ -53,10 +53,9 @@ export class HexForm extends Component {
     })
 
 
-    if (fields !== this.state.fields) {
-      console.log(fields, this.state.fields)
-      this.setState({ fields: fields })
-    }
+    if (fields !== state.fields) {
+      return { fields }
+    } else return null
   }
 
   render() {
