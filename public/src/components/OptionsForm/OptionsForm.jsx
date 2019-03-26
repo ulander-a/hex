@@ -12,8 +12,6 @@ class OptionsForm extends Component {
         size: 50,
         orientation: 'flat',
         data: {}
-        // name: 'unnamed',
-        // terrain: 'plains'
       }),
       GridFactory: {},
       form: {
@@ -109,11 +107,4 @@ class OptionsForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    // width: state.rootReducer.grid.width,
-    // height: state.rootReducer.grid.height
-  }
-}
-
-export default connect(mapStateToProps)(OptionsForm)
+export default connect()(OptionsForm)
