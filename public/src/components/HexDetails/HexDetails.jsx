@@ -10,7 +10,7 @@ export default function HexDetails(props) {
             <p>Y: {hex.y}</p>
             <hr />
             <h3>Free text:</h3>
-            <span>{hex.data.extras}</span>
+            <span>{hex.data.freetext}</span>
         </div>
     )
 }

@@ -8,9 +8,9 @@ class HexForm extends PureComponent {
 
     this.state = {
       fields: [
-        { element: 'input', id: 'name', type: 'text', label: 'name', value: 'unnamed' },
-        { element: 'input', id: 'terrain', type: 'text', label: 'terrain', value: 'plains' },
-        { element: 'textarea', id: 'freetext', type: null, label: 'free text', value: 'Type something, hoss' }
+        { element: 'input', id: 'name', type: 'text', label: 'name', value: this.props.hex.data.name },
+        { element: 'input', id: 'terrain', type: 'text', label: 'terrain', value: this.props.hex.data.terrain },
+        { element: 'textarea', id: 'freetext', type: null, label: 'free text', value: this.props.hex.data.freetext }
       ]
     }
 
@@ -25,7 +25,8 @@ class HexForm extends PureComponent {
       y: this.props.hex.y,
       data: {
         name: this.state.fields.find(el => el.id === 'name').value,
-        terrain: this.state.fields.find(el => el.id === 'terrain').value
+        terrain: this.state.fields.find(el => el.id === 'terrain').value,
+        freetext: this.state.fields.find(el => el.id === 'freetext').value
       }
     }
     this.props.dispatch(updateHex(hex, this.props.grid))

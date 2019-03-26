@@ -24,7 +24,8 @@ const defaultState = {
         y: null,
         data: {
             name: '',
-            terrain: ''
+            terrain: '',
+            freetext: ''
         }
     },
     modal: {
@@ -42,7 +43,7 @@ const rootReducer = (state = defaultState, action) => {
                     isHighlighted: true,
                     x: payload.x,
                     y: payload.y,
-                    data: { name: payload.data.name, terrain: payload.data.terrain }
+                    data: { name: payload.data.name, terrain: payload.data.terrain, freetext: payload.data.freetext }
                 }
             }
         case UPDATE_HEX: 
