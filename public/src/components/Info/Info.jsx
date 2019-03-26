@@ -21,7 +21,10 @@ class Info extends PureComponent {
         </p>
         <p>Name: <span>{hex.data.name}</span></p>
         <p>Terrain: <span>{hex.data.terrain}</span></p>
-        <button onClick={this.open}>More info/Edit</button>
+        <button disabled={!hex.isHighlighted}
+          onClick={this.open}>
+          More info/Edit
+        </button>
       </aside >
     )
   }

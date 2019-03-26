@@ -9,7 +9,7 @@ class App extends Component {
     render() {
         return (
             <div id="App">
-                <Modal isOpen={this.props.modal.isOpen}>
+                <Modal isOpen={this.props.modal.isOpen} ariaHideApp={false}>
                     <ModalContent />
                 </Modal>
                 <Header />
