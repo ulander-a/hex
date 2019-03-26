@@ -1,17 +1,32 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Modal from 'react-modal'
 
-import { Header, Grid, Options, Info } from '../'
+import { Header, Grid, Options, Info, ModalContent } from '../'
 import './App.css'
 
-const App = () => (
-    <div className="App">
-        <Header />
-        <main>
-            <Options />
-            <Grid />
-            <Info />
-        </main>
-    </div>
-)
+class App extends Component {
+    render() {
+        return (
+            <div id="App">
+                <Modal isOpen={this.props.modal.isOpen} ariaHideApp={false}>
+                    <ModalContent />
+                </Modal>
+                <Header />
+                <main>
+                    <Options />
+                    <Grid />
+                    <Info />
+                </main>
+            </div>
+        )
+    }
+}
 
-export default App
+const mapStateToProps = state => {
+    return {
+        modal: state.rootReducer.modal
+    }
+}
+
+export default connect(mapStateToProps)(App)

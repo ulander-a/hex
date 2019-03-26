@@ -12,6 +12,7 @@ const GridSchema = new mongoose.Schema({
         data: {
             name: String,
             terrain: String,
+            freetext: String
         }
     }]
 })

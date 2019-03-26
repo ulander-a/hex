@@ -2,7 +2,7 @@ import {
     HIGHLIGHT_HEX, UPDATE_HEX, GET_GRID_START,
     GET_GRID_SUCCESS, GET_GRID_FAILURE, GET_USER_GRIDS_START,
     GET_USER_GRIDS_SUCCESS, GET_USER_GRIDS_FAILURE, CREATE_GRID_START, 
-    CREATE_GRID_SUCCESS, CREATE_GRID_FAILURE
+    CREATE_GRID_SUCCESS, CREATE_GRID_FAILURE, TOGGLE_MODAL
 } from '../constants/action-types'
 
 const defaultState = {
@@ -22,7 +22,14 @@ const defaultState = {
         isHighlighted: false,
         x: null,
         y: null,
-        data: {}
+        data: {
+            name: '',
+            terrain: '',
+            freetext: ''
+        }
+    },
+    modal: {
+        open: false
     }
 }
 
@@ -36,7 +43,7 @@ const rootReducer = (state = defaultState, action) => {
                     isHighlighted: true,
                     x: payload.x,
                     y: payload.y,
-                    data: { name: payload.data.name, terrain: payload.data.terrain }
+                    data: { name: payload.data.name, terrain: payload.data.terrain, freetext: payload.data.freetext }
                 }
             }
         case UPDATE_HEX: 
@@ -96,6 +103,13 @@ const rootReducer = (state = defaultState, action) => {
                 ...state,
                 isFetching: false,
                 message: payload
+            }
+        case TOGGLE_MODAL:
+            return {
+                ...state,
+                modal: {
+                    isOpen: payload
+                }
             }
         default:
             return state

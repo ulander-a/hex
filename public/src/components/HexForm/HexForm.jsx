@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { updateHex } from '../../redux/actions'
 
-export class HexForm extends Component {
+class HexForm extends PureComponent {
   constructor(props) {
     super(props)
 
     this.state = {
       fields: [
-        { element: 'input', id: 'name', type: 'text', label: 'Name', value: 'unnamed' },
-        { element: 'input', id: 'terrain', type: 'text', label: 'Terrain', value: 'plains' },
+        { element: 'input', id: 'name', type: 'text', label: 'name', value: this.props.hex.data.name },
+        { element: 'input', id: 'terrain', type: 'text', label: 'terrain', value: this.props.hex.data.terrain },
+        { element: 'textarea', id: 'freetext', type: null, label: 'free text', value: this.props.hex.data.freetext }
       ]
     }
 
@@ -24,7 +25,8 @@ export class HexForm extends Component {
       y: this.props.hex.y,
       data: {
         name: this.state.fields.find(el => el.id === 'name').value,
-        terrain: this.state.fields.find(el => el.id === 'terrain').value
+        terrain: this.state.fields.find(el => el.id === 'terrain').value,
+        freetext: this.state.fields.find(el => el.id === 'freetext').value
       }
     }
     this.props.dispatch(updateHex(hex, this.props.grid))
@@ -43,7 +45,7 @@ export class HexForm extends Component {
     const { fields } = this.state
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form style={{ display: this.props.show ? 'block' : 'none' }} onSubmit={this.handleSubmit} >
         {
           fields.map((field, idx) =>
             <div key={idx}>
@@ -53,16 +55,9 @@ export class HexForm extends Component {
           )
         }
         <button type="submit">Save</button>
-      </form>
+      </form >
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    hex: state.rootReducer.hex,
-    grid: state.rootReducer.grid
-  }
-}
-
-export default connect(mapStateToProps)(HexForm)
+export default connect()(HexForm)
