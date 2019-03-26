@@ -49,6 +49,12 @@ export const updateHex = (hex, grid) => dispatch => {
     })
 }
 
+export const toggleModal = isOpen => dispatch => { 
+    let payload
+    isOpen ? payload = false : payload = true
+    dispatch({ type: TOGGLE_MODAL, payload: payload}) 
+}
+
 /**
  * Server-side actions 
  */

@@ -39,30 +39,52 @@ export class HexForm extends Component {
     this.setState({ fields: newFields })
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const fields = Object.entries(props.hex.data).map(entry => {
-      const field = {
-        element: 'input',
-        id: entry[0],
-        type: 'text',
-        label: entry[0],
-        value: entry[1],
-      }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   // console.log(nextProps)
+  //   if (nextProps.hex === this.props.hex) {
+  //     return false
+  //   }
+  // }
 
-      return field
-    })
+  // componentDidUpdate() {
+  //   const fields = Object.entries(this.props.hex.data).map(entry => {
+  //     const field = {
+  //       element: 'input',
+  //       id: entry[0],
+  //       type: 'text',
+  //       label: entry[0],
+  //       value: entry[1],
+  //     }
 
+  //     return field
+  //   })
 
-    if (fields !== state.fields) {
-      return { fields }
-    } else return null
-  }
+  //   this.setState({ fields: fields })
+  // }
+
+  // static getDerivedStateFromProps(props, state) {
+  //   const fields = Object.entries(props.hex.data).map(entry => {
+  //     const field = {
+  //       element: 'input',
+  //       id: entry[0],
+  //       type: 'text',
+  //       label: entry[0],
+  //       value: entry[1],
+  //     }
+
+  //     return field
+  //   })
+
+  //   if (props.hex.fields !== props.hex.fields) {
+  //     return { fields }
+  //   } else return state
+  // }
 
   render() {
     const { fields } = this.state
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} >
         {
           fields.map((field, idx) =>
             <div key={idx}>
@@ -71,8 +93,8 @@ export class HexForm extends Component {
             </div>
           )
         }
-        <button type="submit">Save</button>
-      </form>
+        < button type="submit" > Save</button>
+      </form >
     )
   }
 }
