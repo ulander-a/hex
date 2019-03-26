@@ -10,6 +10,7 @@ class HexForm extends PureComponent {
       fields: [
         { element: 'input', id: 'name', type: 'text', label: 'name', value: 'unnamed' },
         { element: 'input', id: 'terrain', type: 'text', label: 'terrain', value: 'plains' },
+        { element: 'textarea', id: 'freetext', type: null, label: 'free text', value: 'Type something, hoss' }
       ]
     }
 
