@@ -34,7 +34,8 @@ class ModalContent extends PureComponent {
 const mapStateToProps = state => {
     return {
         hex: state.rootReducer.hex,
-        grid: state.rootReducer.grid
+        grid: state.rootReducer.grid,
+        modal: state.rootReducer.modal
     }
 }
 

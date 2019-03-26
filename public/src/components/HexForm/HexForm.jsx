@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { updateHex } from '../../redux/actions'
 
-export default class HexForm extends PureComponent {
+class HexForm extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -57,3 +57,5 @@ export default class HexForm extends PureComponent {
     )
   }
 }
+
+export default connect()(HexForm)

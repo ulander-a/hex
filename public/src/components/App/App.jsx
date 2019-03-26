@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Modal from 'react-modal'
 
 import { Header, Grid, Options, Info, ModalContent } from '../'
@@ -8,10 +9,9 @@ class App extends Component {
     render() {
         return (
             <div id="App">
-                <Modal isOpen={this.state.modalIsOpen}>
+                <Modal isOpen={this.props.modal.isOpen}>
                     <ModalContent />
                 </Modal>
-                <button onClick={this.openModal}>open modal</button>
                 <Header />
                 <main>
                     <Options />
@@ -23,4 +23,10 @@ class App extends Component {
     }
 }
 
-export default App
+const mapStateToProps = state => {
+    return {
+        modal: state.rootReducer.modal
+    }
+}
+
+export default connect(mapStateToProps)(App)

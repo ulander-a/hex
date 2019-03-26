@@ -14,6 +14,7 @@ import {
     CREATE_GRID_SUCCESS,
     CREATE_GRID_FAILURE,
     UPDATE_HEX,
+    TOGGLE_MODAL,
 } from '../constants/action-types'
 
 // Client-side actions
@@ -49,9 +50,10 @@ export const updateHex = (hex, grid) => dispatch => {
     })
 }
 
-export const toggleModal = isOpen => dispatch => { 
+export const toggleModal = isOpen => dispatch => {
+    console.log('eh?') 
     let payload
-    isOpen ? payload = false : payload = true
+    isOpen === true ? payload = false : payload = true
     dispatch({ type: TOGGLE_MODAL, payload: payload}) 
 }
 
