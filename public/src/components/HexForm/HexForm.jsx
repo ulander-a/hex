@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { updateHex } from '../../redux/actions'
 
-export class HexForm extends Component {
+export default class HexForm extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -39,47 +39,6 @@ export class HexForm extends Component {
     this.setState({ fields: newFields })
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // console.log(nextProps)
-  //   if (nextProps.hex === this.props.hex) {
-  //     return false
-  //   }
-  // }
-
-  // componentDidUpdate() {
-  //   const fields = Object.entries(this.props.hex.data).map(entry => {
-  //     const field = {
-  //       element: 'input',
-  //       id: entry[0],
-  //       type: 'text',
-  //       label: entry[0],
-  //       value: entry[1],
-  //     }
-
-  //     return field
-  //   })
-
-  //   this.setState({ fields: fields })
-  // }
-
-  // static getDerivedStateFromProps(props, state) {
-  //   const fields = Object.entries(props.hex.data).map(entry => {
-  //     const field = {
-  //       element: 'input',
-  //       id: entry[0],
-  //       type: 'text',
-  //       label: entry[0],
-  //       value: entry[1],
-  //     }
-
-  //     return field
-  //   })
-
-  //   if (props.hex.fields !== props.hex.fields) {
-  //     return { fields }
-  //   } else return state
-  // }
-
   render() {
     const { fields } = this.state
 
@@ -93,17 +52,8 @@ export class HexForm extends Component {
             </div>
           )
         }
-        < button type="submit" > Save</button>
+        <button type="submit">Save</button>
       </form >
     )
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    grid: state.rootReducer.grid,
-    hex: state.rootReducer.hex
-  }
-}
-
-export default connect(mapStateToProps)(HexForm)

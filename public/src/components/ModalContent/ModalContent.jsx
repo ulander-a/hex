@@ -1,9 +1,9 @@
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { toggleModal } from '../../redux/actions'
-import { HexForm } from '..';
+import { HexForm, HexDetails } from '..';
 
-export default class ModalContent extends PureComponent {
+class ModalContent extends PureComponent {
     
     close = () => {
         this.props.dispatch(toggleModal(this.props.modal.isOpen))
@@ -23,10 +23,19 @@ export default class ModalContent extends PureComponent {
                     <button onClick={this.close}></button>
                 </header>
                 <main>
-                    {/* <HexDetails /> */}
-                    <HexFormm />
+                    <HexDetails hex={this.props.hex} />
+                    <HexForm hex={this.props.hex} grid={this.props.grid} />
                 </main>
             </Fragment>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        hex: state.rootReducer.hex,
+        grid: state.rootReducer.grid
+    }
+}
+
+export default connect(mapStateToProps)(ModalContent)
