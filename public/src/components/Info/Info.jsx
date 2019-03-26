@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import {toggleModal} from '../../redux/actions'
+import { toggleModal } from '../../redux/actions'
 
 class Info extends PureComponent {
   open = () => {

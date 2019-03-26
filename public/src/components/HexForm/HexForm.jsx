@@ -43,7 +43,7 @@ class HexForm extends PureComponent {
     const { fields } = this.state
 
     return (
-      <form onSubmit={this.handleSubmit} >
+      <form style={{ display: this.props.show ? 'block' : 'none' }} onSubmit={this.handleSubmit} >
         {
           fields.map((field, idx) =>
             <div key={idx}>

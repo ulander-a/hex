@@ -51,7 +51,6 @@ export const updateHex = (hex, grid) => dispatch => {
 }
 
 export const toggleModal = isOpen => dispatch => {
-    console.log('eh?') 
     let payload
     isOpen === true ? payload = false : payload = true
     dispatch({ type: TOGGLE_MODAL, payload: payload}) 

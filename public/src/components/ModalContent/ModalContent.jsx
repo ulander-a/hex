@@ -4,27 +4,35 @@ import { toggleModal } from '../../redux/actions'
 import { HexForm, HexDetails } from '..';
 
 class ModalContent extends PureComponent {
-    
+    state = {
+        showForm: false
+    }
+
+
     close = () => {
         this.props.dispatch(toggleModal(this.props.modal.isOpen))
     }
 
+    toggleForm = () => {
+        let show
+        this.state.showForm === true ? show = false : show = true
+        
+        this.setState({
+            showForm: show
+        })
+    }
+
     render() {
-        const pepsistyle = {
-            fontSize: '72px',
-            background: '-webkit-linear-gradient(#ff0, #fff, #220)',
-            backgroundClip: 'text',
-            textFillColor: 'transparent'
-        }
         return (
             <Fragment>
                 <header>
-                    <h1 style={pepsistyle}>P E P S I M A N</h1>
-                    <button onClick={this.close}></button>
+                    <h1>P E P S I M A N</h1>
+                    <button onClick={this.close}> X </button>
                 </header>
                 <main>
                     <HexDetails hex={this.props.hex} />
-                    <HexForm hex={this.props.hex} grid={this.props.grid} />
+                    <button onClick={this.toggleForm}>Show form</button>
+                    <HexForm show={this.state.showForm} hex={this.props.hex} grid={this.props.grid} />
                 </main>
             </Fragment>
         )

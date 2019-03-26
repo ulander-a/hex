@@ -1,10 +1,16 @@
 import React from 'react'
 
 export default function HexDetails(props) {
+    const { hex } = props
     return (
         <div>
-            <p>X: {props.hex.x}</p>
-            <p>Y: {props.hex.y}</p>
+            <h2>{hex.data.name}</h2>
+            <h3>{hex.data.terrain}</h3>
+            <p>X: {hex.x}</p>
+            <p>Y: {hex.y}</p>
+            <hr />
+            <h3>Free text:</h3>
+            <span>{hex.data.extras}</span>
         </div>
     )
 }
