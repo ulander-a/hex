@@ -48,18 +48,47 @@ class Canvas extends Component {
     return bepis
   }
 
+  getTerrain(X, Y) {
+    const coordinates = {x: X, y: Y}
+    const terrain = this.getHexByCoordinates(coordinates).data.terrain
+    console.log('getting terrain')
+
+    switch (terrain) {
+      case 'water':
+          return '0x3286D9'
+      case 'plains':
+        return '0xFAF687'
+      case 'mountains':
+        return '0x858585'
+      case 'forest':
+        return '0x31941B'
+      default:
+        return '0xFFFFFF'
+    }
+  }
+
   draw(grid, highlightCoords = null, highlight = false) {
     this.state.graphics.clear()
     this.state.graphics.lineStyle(1, 0x999999)
 
     grid.forEach(hex => {
+      this.getTerrain(hex.x, hex.y)
+
+      this.state.graphics.beginFill(
+        this.getTerrain(hex.x, hex.y)
+      )
+
       if (highlight) {
         if (hex.x === highlightCoords.x && hex.y === highlightCoords.y) {
           this.state.graphics.beginFill(0x999999)
         } else {
           this.state.graphics.endFill()
+          this.state.graphics.beginFill(
+            this.getTerrain(hex.x, hex.y)
+          )
         }
       }
+
       const point = hex.toPoint()
       // add the hex's position to each of its corner points
       const corners = hex.corners().map(corner => corner.add(point))
