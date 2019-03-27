@@ -49,13 +49,13 @@ class Canvas extends Component {
   }
 
   getTerrain(X, Y) {
-    const coordinates = {x: X, y: Y}
+    const coordinates = { x: X, y: Y }
     const terrain = this.getHexByCoordinates(coordinates).data.terrain
-    console.log('getting terrain')
+    console.log('getting terrain for hex', coordinates)
 
     switch (terrain) {
       case 'water':
-          return '0x3286D9'
+        return '0x3286D9'
       case 'plains':
         return '0xFAF687'
       case 'mountains':
@@ -72,12 +72,6 @@ class Canvas extends Component {
     this.state.graphics.lineStyle(1, 0x999999)
 
     grid.forEach(hex => {
-      this.getTerrain(hex.x, hex.y)
-
-      this.state.graphics.beginFill(
-        this.getTerrain(hex.x, hex.y)
-      )
-
       if (highlight) {
         if (hex.x === highlightCoords.x && hex.y === highlightCoords.y) {
           this.state.graphics.beginFill(0x999999)
@@ -87,6 +81,10 @@ class Canvas extends Component {
             this.getTerrain(hex.x, hex.y)
           )
         }
+      } else {
+        this.state.graphics.beginFill(
+          this.getTerrain(hex.x, hex.y)
+        )
       }
 
       const point = hex.toPoint()
